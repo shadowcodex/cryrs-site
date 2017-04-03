@@ -33,9 +33,23 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                       <ul class="nav navbar-nav">
                         <li><a href="./apply.html">Apply</a></li>
-                        <li><a target="_blank" href="https://zkillboard.com/corporation/98505199/">Killboard</a></li>
-                        <li><a target="_blank" href="https://evewho.com/corp/Cryotech%20Retrieval%20Services/">EveWho</a></li>
-                        <li><a target="_blank" href="http://evemaps.dotlan.net/corp/Cryotech%20Retrieval%20Services">DOTLAN</a></li>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="http://map.cryrs.org">Faction Warfare Map</a></li>
+                            <li><a href="http://fleet.cryrs.org">Fleet Tool</a></li>
+                            <li><a href="#">Links Tool (Coming Soon)</a></li>
+                            <li><a href="#">DSCAN (Planning)</a></li>
+                          </ul>
+                        </li>
+                        <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">External Data <span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a target="_blank" href="https://zkillboard.com/corporation/98505199/">Killboard</a></li>
+                            <li><a target="_blank" href="https://evewho.com/corp/Cryotech%20Retrieval%20Services/">EveWho</a></li>
+                            <li><a target="_blank" href="http://evemaps.dotlan.net/corp/Cryotech%20Retrieval%20Services">DOTLAN</a></li>
+                          </ul>
+                        </li>
                       </ul>
                       <ul class="nav navbar-nav navbar-right">
                         <li><a target="_blank" href="https://services.cryrs.org">Services</a></li>
@@ -203,6 +217,7 @@
                 </div>
             </div>
         </div> <!-- END Container -->
-        
+        <script type="text/javascript" src="./js/query.js"></script>
+        <script type="text/javascript" src="./js/boot.js"></script>
     </body>
 </html>
