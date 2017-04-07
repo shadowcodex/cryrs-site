@@ -17,3 +17,7 @@
     font-size:12px;
     margin-top:20px;
 }
+
+.img-responsive {
+    margin: 0 auto;
+}
