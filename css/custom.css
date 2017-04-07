@@ -10,3 +10,10 @@
 .post_link {
     margin-bottom:3px;
 }
+
+.foot {
+    background-color:#333;
+    padding:10px;
+    font-size:12px;
+    margin-top:20px;
+}

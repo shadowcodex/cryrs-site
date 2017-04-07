@@ -45,9 +45,27 @@ layout: default
         </div>
     </div>
     <div class="col-md-8">
+        {% for post in site.posts limit:1 %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading"><strong>Featured Post:</strong> {{post.title}}</div>
+                        <div class="panel-body">
+                            {{post.content}}
+                            <br>
+                            <a class="btn btn-default" href="{{post.url}}">Post Link</a>
+                        </div>
+                        <div class="panel-footer">
+                            {{post.author}} - {{post.date | date_to_long_string}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
         <div class="row">
             <div class="col-md-12">
                 <h2>Recent News:</h2>
+                <hr>
             </div>
         </div>
         <div class="row">
