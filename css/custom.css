@@ -33,3 +33,12 @@
     border-bottom-width: 1px;
     border-bottom-style: solid;
 }
+
+html, body {
+    background-image: url(/imgs/dark_mosaic.png);
+    /*background-size: cover;*/
+    background-repeat: repeat;
+    /*background-position: center;*/
+    /*background-attachment: fixed;*/
+    
+}
