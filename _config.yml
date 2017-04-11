@@ -24,7 +24,7 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  jekyll
 host: 0.0.0.0
-port: 8080
+port: 8081
 paginate: 10
 # Build settings
 markdown: kramdown
