@@ -28,7 +28,8 @@ var network = new vis.Network(container, data, options);
 
 // DEBUG
 network.on("click", function(params){
-    console.log("X: " + params.pointer.canvas.x/mapScale + " Y: " + params.pointer.canvas.y/mapScale);
+    ga('send', 'event','click', 'gal click on map', "X: " + params.pointer.canvas.x/mapScale + " Y: " + params.pointer.canvas.y/mapScale , '2');
+    //console.log("X: " + params.pointer.canvas.x/mapScale + " Y: " + params.pointer.canvas.y/mapScale);
 });
 
 network.on("beforeDrawing", function (ctx) {

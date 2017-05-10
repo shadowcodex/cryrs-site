@@ -107,6 +107,7 @@ setInterval(function(){
                     if(item != null){
                         if($.inArray(item.killmail.solarSystem.id, systems) > 0 && $.inArray(item.killID, kills) < 0){
                             // console.log(item, performance.now(), $.inArray(item.killmail.solarSystem.id, systems));
+                            ga('send', 'event','kill', 'Minmar Map Kill', item.killID , '1');
                             killStat(item);
                             deathStat(item.killmail);
                             kills.push(item.killID);

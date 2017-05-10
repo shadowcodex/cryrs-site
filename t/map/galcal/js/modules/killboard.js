@@ -102,10 +102,14 @@ setInterval(function(){
             },
             success: function(data){
                 waiting--;
+                
+
                 // do something with data
                 $.each(data, function(i, item){
                     if(item != null){
                         if($.inArray(item.killmail.solarSystem.id, systems) > 0 && $.inArray(item.killID, kills) < 0){
+                            // Signal Google
+                            ga('send', 'event','kill', 'Galmil Map Kill', item.killID , '1');
                             // console.log(item, performance.now(), $.inArray(item.killmail.solarSystem.id, systems));
                             killStat(item);
                             deathStat(item.killmail);

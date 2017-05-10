@@ -5,6 +5,8 @@ var updateNodes = function(){
     $.ajax({
         url: 'http://services.jerkasauruswrecks.com:3000/fw/report',
         success: function(data){
+            // Ping Google
+            ga('send', 'event','Systems', 'Minmar Systems Updated', performance.now().toString() , '0');
             // do something with data
             $('#systems tbody').remove();
             $('#systems').append('<tbody></tbody>');
