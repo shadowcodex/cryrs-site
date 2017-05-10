@@ -42,3 +42,23 @@ html, body {
     /*background-attachment: fixed;*/
     
 }
+
+.memeprop {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    max-width: 60%;
+}
+
+.memelink {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.beutybtn {
+    max-width: 60%;
+    display:block;
+    margin-left: auto;
+    margin-right:auto;
+}

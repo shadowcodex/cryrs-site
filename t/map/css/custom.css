@@ -1,0 +1,103 @@
+html, body {
+    background-image: url(/imgs/dark_mosaic.png);
+    background-repeat: repeat;
+    
+}
+
+
+#mynetwork {
+    width: 60%;
+    height: 100%; 
+    border: 1px solid lightgray;
+    float: left;
+}
+
+#data {
+    padding:15px;
+    padding-top: 0px;
+    width: 40%;
+    height: 100%;
+    float: left;
+    overflow-y: auto;
+}
+
+#stats {
+    padding-left: 15px;
+    width: 40%;
+    float: left;
+}
+
+
+#killboard {
+}
+
+#killboard-scroll {
+    height: 40%;
+    overflow: auto;
+}
+
+
+.table {
+    font-size: 12px;
+}
+
+.s16 {
+    width: 20px;
+    height: 20px;
+}
+
+#system {
+}
+
+#system-scroll {
+    height: 38%;
+    overflow: auto;
+}
+
+a {
+    color: #fff;
+}
+
+div.vis-network div.vis-navigation div.vis-button.vis-up {
+    background-image: url("./../imgs/up32.png");
+}
+div.vis-network div.vis-navigation div.vis-button.vis-down {
+    background-image: url("./../imgs/down32.png");
+}
+div.vis-network div.vis-navigation div.vis-button.vis-left {
+    background-image: url("./../imgs/left32.png");
+}
+div.vis-network div.vis-navigation div.vis-button.vis-right {
+    background-image: url("./../imgs/right32.png");
+}
+div.vis-network div.vis-navigation div.vis-button.vis-zoomIn {
+    background-image: url("./../imgs/plus32.png");
+}
+div.vis-network div.vis-navigation div.vis-button.vis-zoomOut {
+    background-image: url("./../imgs/minus32.png");
+}
+div.vis-network div.vis-navigation div.vis-button.vis-zoomExtends {
+    background-image: url("./../imgs/reset32.png");
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+}
+::-webkit-scrollbar-button {
+    background: #ccc;
+    height: 0px;
+}
+::-webkit-scrollbar-track-piece {
+    background: #888
+}
+::-webkit-scrollbar-thumb {
+    background: #eee
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+    
+}

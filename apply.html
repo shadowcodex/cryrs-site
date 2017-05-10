@@ -51,14 +51,14 @@ layout: default
         <script>
             /* global firebase $ performance */
             // Initialize Firebase
-            var config = {
-                apiKey: "AIzaSyCieVEs0hfyWDDse-n-WCDhFlQib8ZS2kc",
-                authDomain: "cryrs-site.firebaseapp.com",
-                databaseURL: "https://cryrs-site.firebaseio.com",
-                storageBucket: "cryrs-site.appspot.com",
-                messagingSenderId: "58380751284"
-            };
-            firebase.initializeApp(config);
+            // var config = {
+            //     apiKey: "AIzaSyCieVEs0hfyWDDse-n-WCDhFlQib8ZS2kc",
+            //     authDomain: "cryrs-site.firebaseapp.com",
+            //     databaseURL: "https://cryrs-site.firebaseio.com",
+            //     storageBucket: "cryrs-site.appspot.com",
+            //     messagingSenderId: "58380751284"
+            // };
+            // firebase.initializeApp(config);
           
             function generateUUID () { // Public Domain/MIT
                 var d = new Date().getTime();
@@ -74,8 +74,12 @@ layout: default
             
             $('#submit').on('click', function(){
                 var id = generateUUID();
-                var database = firebase.database();
+                // var database = firebase.database();
+                var today = new Date();
+                
                 var object = {
+                    id: id,
+                    when: today.toDateString(),
                     name: $('#character_name').val(),
                     killboard: $('#killboard_link').val(),
                     apiKey: $('#key_id').val(),
@@ -87,21 +91,29 @@ layout: default
                     pvp: $('#pvp').val(),
                     why: $('#why').val(),
                     ts3: $('#ts3').val(),
-                    matureRespect: $('#mature_respect').val()
+                    matureRespect: $('#mature_respect').val(),
+                    replyto: 'noreply@jerkasauruswrecks.com',
+                    subject: 'New JREX Application',
                 }
-                database.ref('apps/' + id).set(object);
-                $('#character_name').val(''),
-                $('#killboard_link').val(''),
-                $('#key_id').val(''),
-                $('#key_verification').val('');
-                $('#main_or_alt').val('');
-                $('#city_country').val('');
-                $('#timezone').val('');
-                $('#email').val('');
-                $('#pvp').val('');
-                $('#why').val('');
-                $('#ts3').val('');
-                $('#mature_respect').val('');
+                $.ajax({
+                    url: "https://formspree.io/apply@jerkasauruswrecks.com", 
+                    method: "POST",
+                    data: object,
+                    dataType: "json"
+                });
+                // database.ref('apps/' + id).set(object);
+                // $('#character_name').val(''),
+                // $('#killboard_link').val(''),
+                // $('#key_id').val(''),
+                // $('#key_verification').val('');
+                // $('#main_or_alt').val('');
+                // $('#city_country').val('');
+                // $('#timezone').val('');
+                // $('#email').val('');
+                // $('#pvp').val('');
+                // $('#why').val('');
+                // $('#ts3').val('');
+                // $('#mature_respect').val('');
                 $('#appid').html(id);
                 $('#the-form').remove();
                 
