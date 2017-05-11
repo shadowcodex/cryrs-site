@@ -15,4 +15,8 @@ var images = [
         id: 3,
         img : 'imgs/llj.jpg'
     },
+    {
+        id: 4,
+        img: 'imgs/jj.png'
+    }
 ];
