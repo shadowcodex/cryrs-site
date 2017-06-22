@@ -111,7 +111,7 @@
         {id: 30003830, label: 'Orvolle', fixed: true, x: 40*mapScale, y: 340*mapScale, color: colorHS},
         {id: 30004975, label: 'Mesybier', fixed: true, x: 20*mapScale, y: 490*mapScale, color: colorHS},
         {id: 30003835, label: 'Maut', fixed: true, x: 60*mapScale, y: 260*mapScale, color: colorHS},
-        {id: 30003833, label: 'Oulley', fixed: true, x: 80*mapScale, y: 320*mapScale, color: colorHS},
+        {id: 30003833, label: 'Oulley', fixed: true, x: 80*mapScale, y: 320*mapScale, color: colorLSNULL},
         {id: 30003268, label: 'MHC-R3', fixed: true, x: 50*mapScale, y: 410*mapScale, color: colorLSNULL},
         {id: 30003824, label: 'Archavoinet', fixed: true, x: 120*mapScale, y: 350*mapScale, color: colorHS},
         {id: 30003806, label: 'Pelille', fixed: true, x: 120*mapScale, y: 370*mapScale, color: colorHS},
@@ -151,322 +151,322 @@
     
     // create an array with edges
     var edges = new vis.DataSet([
-        //W-4NUU -> Okagaiken
-        {from: 30004055, to: 30045307},
-        //Okagaiken -> Ienakkamon, Villasen
-        {from: 30045307, to: 30045313},
-        {from: 30045307, to: 30045309},
-        //Villasen -> Korasen, Hykanima, Kehjari
-        {from: 30045309, to: 30045312},
-        {from: 30045309, to: 30045306},
-        {from: 30045309, to: 30045308},
-        //Ienakkamon -> Ashitsu
-        {from: 30045313, to: 30045311},
-        //Ashitsu -> Hykanima, Kehjari
-        {from: 30045311, to: 30045306},
-        {from: 30045311, to: 30045308},
-        //Hykanima -> Sarenemi
-        {from: 30045306, to: 30045310},
-        //Sarenemi -> Karjataimon
-        {from: 30045310, to: 30001440},
-        //Kehjari -> Martoh
-        {from: 30045308, to: 30045318},
-        //Martoh -> Iralaja, kinakka, Innia, Eha
-        {from: 30045318, to: 30045317},
-        {from: 30045318, to: 30045314},
-        {from: 30045318, to: 30045316},
-        {from: 30045318, to: 30045319},
-        //Eha -> Oicx
-        {from: 30045319, to: 30003838},
-        //Iralaja -> Raihbaka
-        {from: 30045317, to: 30045315},
-        //Raihbaka -> Ohbochi, Kinakka
-        {from: 30045315, to: 30001435},
-        {from: 30045315, to: 30045314},
-        //Kinakka -> Onnamon, Innia
-        {from: 30045314, to: 30045324},
-        {from: 30045314, to: 30045316},
-        //Innia -> Eha, Pavanakka
-        {from: 30045316, to: 30045319},
-        {from: 30045316, to: 30045320},
-        //Pavanakka -> Aivonen
-        {from: 30045320, to: 30045340},
-        //Aivonen -> Akidagi
-        {from: 30045340, to: 30045342},
-        //
-        //Onnamon -> Tsuruma, Uuhulanen, Ahtila, Rohamaa
-        {from: 30045324, to: 30045327},
-        {from: 30045324, to: 30045326},
-        {from: 30045324, to: 30045328},
-        {from: 30045324, to: 30045325},
-        //Tsuruma -> Astoh
-        {from: 30045327, to: 30045323},
-        //Astoh -> Uuhulanen
-        {from: 30045323, to: 30045326},
-        //Uuhulanen -> Samanuni
-        {from: 30045326, to: 30045322},
-        //Samanuni -> Ikoskio, Ahtila, Uchomida
-        {from: 30045322, to: 30045337},
-        {from: 30045322, to: 30045328},
-        {from: 30045322, to: 30045321},
-        //Ahtila -> Ichoriya
-        {from: 30045328, to: 30045329},
-        //Rohamaa -> Uchomida
-        {from: 30045325, to: 30045321},
-        //Uchomida -> Ichoriya
-        {from: 30045321, to: 30045329},
-        //Ichoriya -> Akidagi
-        {from: 30045329, to: 30045342},
-        //
-        //Ikoskio -> Asakai, Prism
-        {from: 30045337, to: 30045332},
-        {from: 30045337, to: 30045333},
-        //Prism -> Asakai, Elunala
-        {from: 30045333, to: 30045332},
-        {from: 30045333, to: 30045336},
-        //Elunala -> Asakai
-        {from: 30045336, to: 30045332},
-        //Asakai -> Vaaralen, Mushikegi, Okkamon
-        {from: 30045332, to: 30045331},
-        {from: 30045332, to: 30045334},
-        {from: 30045332, to: 30045330},
-        //Vaaralen -> Teskanen, Mushikegi
-        {from: 30045331, to: 30045335},
-        {from: 30045331, to: 30045334},
-        //Mushikegi -> Manjonakko, Okkamon
-        {from: 30045334, to: 30002760},
-        {from: 30045334, to: 30045330},
-        //Manjonakko -> Uuna
-        {from: 30002760, to: 30002759},
-        //Uuna -> Ishomilken
-        {from: 30002759, to: 30002756},
-        //Ishomilken -> Usi, Nikkishina
-        {from: 30002756, to: 30002755},
-        {from: 30002756, to: 30002757},
-        //Nikkishina -> Hasama
-        {from: 30002757, to: 30002758},
-        //Hasama -> Mara
-        {from: 30002758, to: 30001388},
-        //Okkamon -> Reitsato
-        {from: 30045330, to: 30045354},
-        //
-        //Reitsato -> Rakapas, Kedama
-        {from: 30045354, to: 30045349},
-        {from: 30045354, to: 30045346},
-        //Rakapas -> Iwisoda, Pynekastoh
-        {from: 30045349, to: 30045351},
-        {from: 30045349, to: 30045353},
-        //Kedama -> Teimo, Tama, Nisuwa, Hirri
-        {from: 30045346, to: 30045350},
-        {from: 30045346, to: 30045352},
-        {from: 30045346, to: 30045345},
-        //Tama -> Nourvukaiken, Sujarento, Kedama
-        {from: 30002813, to: 30001376},
-        {from: 30002813, to: 30002809},
-        {from: 30002813, to: 30045346},
-        //Nisuwa -> Hirri, Notoras, Oinasiken
-        {from: 30045352, to: 30045345},
-        {from: 30045352, to: 30045348},
-        {from: 30045352, to: 30045347},
-        //Hirri -> Pynekastoh
-        {from: 30045345, to: 30045353},
-        //Pynekastoh -> Hikkoken, Oinasiken
-        {from: 30045353, to: 30045338},
-        {from: 30045353, to: 30045347},
-        //
-        //Sujarento -> Onatoh, Eranakko, Nagamanen
-        {from: 30002809, to: 30002811},
-        {from: 30002809, to: 30002810},
-        {from: 30002809, to: 30002807},
-        //Onatoh -> Tannolen, Eranakko
-        {from: 30002811, to: 30002812},
-        {from: 30002811, to: 30002810},
-        //Tannolen -> Tierijev
-        {from: 30002812, to: 30005334},
-        //
-        //Nagamanen -> Oto, Hasmijaala, Deven
-        {from: 30002807, to: 30002808},
-        {from: 30002807, to: 30002806},
-        {from: 30002807, to: 30004985},
-        //Hasmijaala -> Hysera
-        {from: 30002806, to: 30002796},
-        //Hysera -> Oshaima, Oisio
-        {from: 30002796, to: 30002795},
-        {from: 30002796, to: 30002799},
-        //Oshaima -> Oisio
-        {from: 30002795, to: 30002799},
-        //
-        //Hikkoken -> Immuri, Nennamaila, Hallanen
-        {from: 30045338, to: 30045343},
-        {from: 30045338, to: 30045344},
-        {from: 30045338, to: 30045341},
-        //Hallanen -> Enaluri, Akidagi, Nennamaila
-        {from: 30045341, to: 30045339},
-        //{from: 30045341, to: 30045342},
-        //{from: 30045341, to: 30045344},
-        //Enaluri -> Akidagi
-        {from: 30045339, to: 30045342},
-        {from: 30045339, to: 30045344},
-        //Immuri -> Nennamaila
-        {from: 30045343, to: 30045344},
-        //Nennamaila -> Akidagi, Aldranette
-        {from: 30045344, to: 30045342},
-        {from: 30045344, to: 30003837},
-        //
-        //Oinasiken -> Abune
-        {from: 30045347, to: 30004984},
-        //Abune -> Heydieles
-        {from: 30004984, to: 30004979},
-        //Heydieles -> Fliet, Actee, Yvangier, Indregulle
-        {from: 30004979, to: 30004980},
-        {from: 30004979, to: 30004981},
-        {from: 30004979, to: 30004977},
-        
-        {from: 30004979, to: 30004982},
-        //Fliet -> Deven, Actee
-        {from: 30004980, to: 30004985},
-        {from: 30004980, to: 30004981},
-        //Actee -> Amane
-        {from: 30004981, to: 30004983},
-        //Amane -> Estaunitte
-        {from: 30004983, to: 30004986},
-        //
-        //OMS -> Villore, Ladistier, Heydieles
-        {from: 30005000, to: 30004993},
-        {from: 30005000, to: 30004999},
-        {from: 30005000, to: 30004979},
-        //Villore -> Allamotte
-        {from: 30004993, to: 30004995},
-        //Allamotte -> Vifrevaert
-        {from: 30004995, to: 30004997},
-        //Vifrevaert -> Ladistier
-        {from: 30004997, to: 30004999},
-        //Ladistier -> Aeschee
-        {from: 30004999, to: 30005008},
-        //
-        //Aeschee -> Jovainnon
-        {from: 30005008, to: 30005321},
-        //Jovainnon -> Hevrice
-        {from: 30005321, to: 30005320},
-        //Hevrice -> Raneilles, Muetralle
-        {from: 30005320, to: 30005319},
-        {from: 30005320, to: 30005299},
-        //Muetralle -> Costolle
-        {from: 30005299, to: 30005298},
-        {from: 30005295, to: 30004982},
-        //Costolle -> Melmaniel
-        {from: 30005298, to: 30005296},
-        //
-        //Indregulle -> Murethand
-        //
-        //Murethand -> Mesybier, Melmaniel
-        {from: 30005295, to: 30004975},
-        {from: 30005295, to: 30005296},
-        {from: 30005295, to: 30004975},
-        //Melmaniel -> Ouelletta
-        {from: 30005296, to: 30005297},
-        //Ouelletta -> Jufvitte, Loes
-        {from: 30005297, to: 30005308},
-        {from: 30005297, to: 30005300},
-        //Loes -> Agoze
-        {from: 30005300, to: 30003787},
-        //Agoze -> Annancale, Intaki, Vey, Ostingele
-        {from: 30003787, to: 30003791},
-        {from: 30003787, to: 30003788},
-        {from: 30003787, to: 30003790},
-        {from: 30003787, to: 30003792},
-        //Annancale -> Brarel
-        {from: 30003791, to: 30003789},
-        //Brarel -> Intaki
-        {from: 30003789, to: 30003788},
-        //Intaki -> Vey
-        {from: 30003788, to: 30003790},
-        //Vey -> Frarie
-        {from: 30003790, to: 30003826},
-        //
-        //Ostingele -> Alperaute, Pelille, Harroule, Dastryns, Stacmon
-        {from: 30003792, to: 30003800},
-        {from: 30003792, to: 30003806},
-        {from: 30003792, to: 30003793},
-        {from: 30003792, to: 30003797},
-        {from: 30003792, to: 30003794},
-        //Harroule -> MHC-R3
-        {from: 30003793, to: 30003268},
-        //Dastryns -> Uphallant, Iges, Stacmon
-        {from: 30003797, to: 30003799},
-        {from: 30003797, to: 30003796},
-        {from: 30003797, to: 30003794},
-        //Uphallant -> Iges
-        {from: 30003799, to: 30003796},
-        //Iges -> Slays, Covryn
-        {from: 30003796, to: 30003798},
-        {from: 30003796, to: 30003795},
-        //Slays -> Stacmon
-        {from: 30003798, to: 30003794},
-        //Stacmon -> Covryn
-        {from: 30003794, to: 30003795},
-        //Covryn -> Cumemare
-        {from: 30003795, to: 30003802},
-        //
-        //Oicx -> Vlillirier
-        {from: 30003838, to: 30003836},
-        //Vlillirier -> Alsavoinon, Renarelle, Aldranette
-        {from: 30003836, to: 30003841},
-        {from: 30003836, to: 30003829},
-        {from: 30003836, to: 30003837},
-        //Alsavoinon -> F7C-H0
-        {from: 30003841, to: 30004046},
-        //Aldranette -> Evaulon
-        {from: 30003837, to: 30003839},
-        //Evaulon -> Anchauttes
-        {from: 30003839, to: 30003840},
-        //Anchauttes -> Esesier, Odamia
-        {from: 30003840, to: 30003842},
-        {from: 30003840, to: 30003857},
-        //Odamia -> Arderonne, Alamel
-        {from: 30003857, to: 30003852},
-        {from: 30003857, to: 30003854},
-        //Alamel -> Arderonne, Mantenault
-        {from: 30003854, to: 30003852},
-        {from: 30003854, to: 30003855},
-        //Mantenault -> RQH-MY
-        {from: 30003855, to: 30002039},
-        //Arderonne -> Reschard
-        {from: 30003852, to: 30003851},
-        //Reschard -> Mercomesier, Alparena
-        {from: 30003851, to: 30003853},
-        {from: 30003851, to: 30003850},
-        //Mercomesier -> Athounon
-        {from: 30003853, to: 30003856},
-        //Alparena -> Maut
-        {from: 30003850, to: 30003835},
-        //Maut -> Adacyne, Osmeden
-        {from: 30003835, to: 30003832},
-        {from: 30003835, to: 30003831},
-        //Adacyne -> Chardalane, Osmeden
-        {from: 30003832, to: 30003834},
-        {from: 30003832, to: 30003831},
-        //Osmeden -> Orvolle
-        {from: 30003831, to: 30003830},
-        //
-        //Renarelle -> Moclinamaud, Aubenall
-        {from: 30003829, to: 30003828},
-        {from: 30003829, to: 30003827},
-        //Aubenall -> Oulley, Archavoinet, Eugales
-        {from: 30003827, to: 30003833},
-        {from: 30003827, to: 30003824},
-        {from: 30003827, to: 30003825},
-        //Moclinamaud -> Frarie, Eugales
-        {from: 30003828, to: 30003826},
-        {from: 30003828, to: 30003825},
-        //Eugales -> Archavoinet, Frarie
-        {from: 30003825, to: 30003824},
-        {from: 30003825, to: 30003826},
-        //Oulley -> Orvolle
-        {from: 30003833, to: 30003830},
-        //Orvolle -> Mesybier
-        {from: 30003830, to: 30004975},
-        //Mesybier -> Murethand
+       //W-4NUU -> Okagaiken
+       {from: 30004055, to: 30045307, color: {color: '#FFFFFF'}},
+       //Okagaiken -> Ienakkamon, Villasen
+       {from: 30045307, to: 30045313, color: {color: '#FFFFFF'}},
+       {from: 30045307, to: 30045309, color: {color: '#FFFFFF'}},
+       //Villasen -> Korasen, Hykanima, Kehjari
+       {from: 30045309, to: 30045312, color: {color: '#FFFFFF'}},
+       {from: 30045309, to: 30045306, color: {color: '#FFFFFF'}},
+       {from: 30045309, to: 30045308, color: {color: '#FFFFFF'}},
+       //Ienakkamon -> Ashitsu
+       {from: 30045313, to: 30045311, color: {color: '#FFFFFF'}},
+       //Ashitsu -> Hykanima, Kehjari
+       {from: 30045311, to: 30045306, color: {color: '#FFFFFF'}},
+       {from: 30045311, to: 30045308, color: {color: '#FFFFFF'}},
+       //Hykanima -> Sarenemi
+       {from: 30045306, to: 30045310, color: {color: '#FFFFFF'}},
+       //Sarenemi -> Karjataimon
+       {from: 30045310, to: 30001440, color: {color: '#FFFFFF'}},
+       //Kehjari -> Martoh
+       {from: 30045308, to: 30045318, color: {color: '#FFFFFF'}},
+       //Martoh -> Iralaja, kinakka, Innia, Eha
+       {from: 30045318, to: 30045317, color: {color: '#FFFFFF'}},
+       {from: 30045318, to: 30045314, color: {color: '#FFFFFF'}},
+       {from: 30045318, to: 30045316, color: {color: '#FFFFFF'}},
+       {from: 30045318, to: 30045319, color: {color: '#FFFFFF'}},
+       //Eha -> Oicx
+       {from: 30045319, to: 30003838, color: {color: '#FFFFFF'}},
+       //Iralaja -> Raihbaka
+       {from: 30045317, to: 30045315, color: {color: '#FFFFFF'}},
+       //Raihbaka -> Ohbochi, Kinakka
+       {from: 30045315, to: 30001435, color: {color: '#FFFFFF'}},
+       {from: 30045315, to: 30045314, color: {color: '#FFFFFF'}},
+       //Kinakka -> Onnamon, Innia
+       {from: 30045314, to: 30045324, color: {color: '#FFFFFF'}},
+       {from: 30045314, to: 30045316, color: {color: '#FFFFFF'}},
+       //Innia -> Eha, Pavanakka
+       {from: 30045316, to: 30045319, color: {color: '#FFFFFF'}},
+       {from: 30045316, to: 30045320, color: {color: '#FFFFFF'}},
+       //Pavanakka -> Aivonen
+       {from: 30045320, to: 30045340, color: {color: '#FFFFFF'}},
+       //Aivonen -> Akidagi
+       {from: 30045340, to: 30045342, color: {color: '#FFFFFF'}},
+       //
+       //Onnamon -> Tsuruma, Uuhulanen, Ahtila, Rohamaa
+       {from: 30045324, to: 30045327, color: {color: '#FFFFFF'}},
+       {from: 30045324, to: 30045326, color: {color: '#FFFFFF'}},
+       {from: 30045324, to: 30045328, color: {color: '#FFFFFF'}},
+       {from: 30045324, to: 30045325, color: {color: '#FFFFFF'}},
+       //Tsuruma -> Astoh
+       {from: 30045327, to: 30045323, color: {color: '#FFFFFF'}},
+       //Astoh -> Uuhulanen
+       {from: 30045323, to: 30045326, color: {color: '#FFFFFF'}},
+       //Uuhulanen -> Samanuni
+       {from: 30045326, to: 30045322, color: {color: '#FFFFFF'}},
+       //Samanuni -> Ikoskio, Ahtila, Uchomida
+       {from: 30045322, to: 30045337, color: {color: '#FFFFFF'}},
+       {from: 30045322, to: 30045328, color: {color: '#FFFFFF'}},
+       {from: 30045322, to: 30045321, color: {color: '#FFFFFF'}},
+       //Ahtila -> Ichoriya
+       {from: 30045328, to: 30045329, color: {color: '#FFFFFF'}},
+       //Rohamaa -> Uchomida
+       {from: 30045325, to: 30045321, color: {color: '#FFFFFF'}},
+       //Uchomida -> Ichoriya
+       {from: 30045321, to: 30045329, color: {color: '#FFFFFF'}},
+       //Ichoriya -> Akidagi
+       {from: 30045329, to: 30045342, color: {color: '#FFFFFF'}},
+       //
+       //Ikoskio -> Asakai, Prism
+       {from: 30045337, to: 30045332, color: {color: '#FFFFFF'}},
+       {from: 30045337, to: 30045333, color: {color: '#FFFFFF'}},
+       //Prism -> Asakai, Elunala
+       {from: 30045333, to: 30045332, color: {color: '#FFFFFF'}},
+       {from: 30045333, to: 30045336, color: {color: '#FFFFFF'}},
+       //Elunala -> Asakai
+       {from: 30045336, to: 30045332, color: {color: '#FFFFFF'}},
+       //Asakai -> Vaaralen, Mushikegi, Okkamon
+       {from: 30045332, to: 30045331, color: {color: '#FFFFFF'}},
+       {from: 30045332, to: 30045334, color: {color: '#FFFFFF'}},
+       {from: 30045332, to: 30045330, color: {color: '#FFFFFF'}},
+       //Vaaralen -> Teskanen, Mushikegi
+       {from: 30045331, to: 30045335, color: {color: '#FFFFFF'}},
+       {from: 30045331, to: 30045334, color: {color: '#FFFFFF'}},
+       //Mushikegi -> Manjonakko, Okkamon
+       {from: 30045334, to: 30002760, color: {color: '#FFFFFF'}},
+       {from: 30045334, to: 30045330, color: {color: '#FFFFFF'}},
+       //Manjonakko -> Uuna
+       {from: 30002760, to: 30002759, color: {color: '#FFFFFF'}},
+       //Uuna -> Ishomilken
+       {from: 30002759, to: 30002756, color: {color: '#FFFFFF'}},
+       //Ishomilken -> Usi, Nikkishina
+       {from: 30002756, to: 30002755, color: {color: '#FFFFFF'}},
+       {from: 30002756, to: 30002757, color: {color: '#FFFFFF'}},
+       //Nikkishina -> Hasama
+       {from: 30002757, to: 30002758, color: {color: '#FFFFFF'}},
+       //Hasama -> Mara
+       {from: 30002758, to: 30001388, color: {color: '#FFFFFF'}},
+       //Okkamon -> Reitsato
+       {from: 30045330, to: 30045354, color: {color: '#FFFFFF'}},
+       //
+       //Reitsato -> Rakapas, Kedama
+       {from: 30045354, to: 30045349, color: {color: '#FFFFFF'}},
+       {from: 30045354, to: 30045346, color: {color: '#FFFFFF'}},
+       //Rakapas -> Iwisoda, Pynekastoh
+       {from: 30045349, to: 30045351, color: {color: '#FFFFFF'}},
+       {from: 30045349, to: 30045353, color: {color: '#FFFFFF'}},
+       //Kedama -> Teimo, Tama, Nisuwa, Hirri
+       {from: 30045346, to: 30045350, color: {color: '#FFFFFF'}},
+       {from: 30045346, to: 30045352, color: {color: '#FFFFFF'}},
+       {from: 30045346, to: 30045345, color: {color: '#FFFFFF'}},
+       //Tama -> Nourvukaiken, Sujarento, Kedama
+       {from: 30002813, to: 30001376, color: {color: '#FFFFFF'}},
+       {from: 30002813, to: 30002809, color: {color: '#FFFFFF'}},
+       {from: 30002813, to: 30045346, color: {color: '#FFFFFF'}},
+       //Nisuwa -> Hirri, Notoras, Oinasiken
+       {from: 30045352, to: 30045345, color: {color: '#FFFFFF'}},
+       {from: 30045352, to: 30045348, color: {color: '#FFFFFF'}},
+       {from: 30045352, to: 30045347, color: {color: '#FFFFFF'}},
+       //Hirri -> Pynekastoh
+       {from: 30045345, to: 30045353, color: {color: '#FFFFFF'}},
+       //Pynekastoh -> Hikkoken, Oinasiken
+       {from: 30045353, to: 30045338, color: {color: '#FFFFFF'}},
+       {from: 30045353, to: 30045347, color: {color: '#FFFFFF'}},
+       //
+       //Sujarento -> Onatoh, Eranakko, Nagamanen
+       {from: 30002809, to: 30002811, color: {color: '#FFFFFF'}},
+       {from: 30002809, to: 30002810, color: {color: '#FFFFFF'}},
+       {from: 30002809, to: 30002807, color: {color: '#FFFFFF'}},
+       //Onatoh -> Tannolen, Eranakko
+       {from: 30002811, to: 30002812, color: {color: '#FFFFFF'}},
+       {from: 30002811, to: 30002810, color: {color: '#FFFFFF'}},
+       //Tannolen -> Tierijev
+       {from: 30002812, to: 30005334, color: {color: '#FFFFFF'}},
+       //
+       //Nagamanen -> Oto, Hasmijaala, Deven
+       {from: 30002807, to: 30002808, color: {color: '#FFFFFF'}},
+       {from: 30002807, to: 30002806, color: {color: '#FFFFFF'}},
+       {from: 30002807, to: 30004985, color: {color: '#FFFFFF'}},
+       //Hasmijaala -> Hysera
+       {from: 30002806, to: 30002796, color: {color: '#FFFFFF'}},
+       //Hysera -> Oshaima, Oisio
+       {from: 30002796, to: 30002795, color: {color: '#FFFFFF'}},
+       {from: 30002796, to: 30002799, color: {color: '#FFFFFF'}},
+       //Oshaima -> Oisio
+       {from: 30002795, to: 30002799, color: {color: '#FFFFFF'}},
+       //
+       //Hikkoken -> Immuri, Nennamaila, Hallanen
+       {from: 30045338, to: 30045343, color: {color: '#FFFFFF'}},
+       {from: 30045338, to: 30045344, color: {color: '#FFFFFF'}},
+       {from: 30045338, to: 30045341, color: {color: '#FFFFFF'}},
+       //Hallanen -> Enaluri, Akidagi, Nennamaila
+       {from: 30045341, to: 30045339, color: {color: '#FFFFFF'}},
+       //{from: 30045341, to: 30045342, color: {color: '#FFFFFF'}},
+       //{from: 30045341, to: 30045344, color: {color: '#FFFFFF'}},
+       //Enaluri -> Akidagi
+       {from: 30045339, to: 30045342, color: {color: '#FFFFFF'}},
+       {from: 30045339, to: 30045344, color: {color: '#FFFFFF'}},
+       //Immuri -> Nennamaila
+       {from: 30045343, to: 30045344, color: {color: '#FFFFFF'}},
+       //Nennamaila -> Akidagi, Aldranette
+       {from: 30045344, to: 30045342, color: {color: '#FFFFFF'}},
+       {from: 30045344, to: 30003837, color: {color: '#FFFFFF'}},
+       //
+       //Oinasiken -> Abune
+       {from: 30045347, to: 30004984, color: {color: '#FFFFFF'}},
+       //Abune -> Heydieles
+       {from: 30004984, to: 30004979, color: {color: '#FFFFFF'}},
+       //Heydieles -> Fliet, Actee, Yvangier, Indregulle
+       {from: 30004979, to: 30004980, color: {color: '#FFFFFF'}},
+       {from: 30004979, to: 30004981, color: {color: '#FFFFFF'}},
+       {from: 30004979, to: 30004977, color: {color: '#FFFFFF'}},
+       
+       {from: 30004979, to: 30004982, color: {color: '#FFFFFF'}},
+       //Fliet -> Deven, Actee
+       {from: 30004980, to: 30004985, color: {color: '#FFFFFF'}},
+       {from: 30004980, to: 30004981, color: {color: '#FFFFFF'}},
+       //Actee -> Amane
+       {from: 30004981, to: 30004983, color: {color: '#FFFFFF'}},
+       //Amane -> Estaunitte
+       {from: 30004983, to: 30004986, color: {color: '#FFFFFF'}},
+       //
+       //OMS -> Villore, Ladistier, Heydieles
+       {from: 30005000, to: 30004993, color: {color: '#FFFFFF'}},
+       {from: 30005000, to: 30004999, color: {color: '#FFFFFF'}},
+       {from: 30005000, to: 30004979, color: {color: '#FFFFFF'}},
+       //Villore -> Allamotte
+       {from: 30004993, to: 30004995, color: {color: '#FFFFFF'}},
+       //Allamotte -> Vifrevaert
+       {from: 30004995, to: 30004997, color: {color: '#FFFFFF'}},
+       //Vifrevaert -> Ladistier
+       {from: 30004997, to: 30004999, color: {color: '#FFFFFF'}},
+       //Ladistier -> Aeschee
+       {from: 30004999, to: 30005008, color: {color: '#FFFFFF'}},
+       //
+       //Aeschee -> Jovainnon
+       {from: 30005008, to: 30005321, color: {color: '#FFFFFF'}},
+       //Jovainnon -> Hevrice
+       {from: 30005321, to: 30005320, color: {color: '#FFFFFF'}},
+       //Hevrice -> Raneilles, Muetralle
+       {from: 30005320, to: 30005319, color: {color: '#FFFFFF'}},
+       {from: 30005320, to: 30005299, color: {color: '#FFFFFF'}},
+       //Muetralle -> Costolle
+       {from: 30005299, to: 30005298, color: {color: '#FFFFFF'}},
+       {from: 30005295, to: 30004982, color: {color: '#FFFFFF'}},
+       //Costolle -> Melmaniel
+       {from: 30005298, to: 30005296, color: {color: '#FFFFFF'}},
+       //
+       //Indregulle -> Murethand
+       //
+       //Murethand -> Mesybier, Melmaniel
+       {from: 30005295, to: 30004975, color: {color: '#FFFFFF'}},
+       {from: 30005295, to: 30005296, color: {color: '#FFFFFF'}},
+       {from: 30005295, to: 30004975, color: {color: '#FFFFFF'}},
+       //Melmaniel -> Ouelletta
+       {from: 30005296, to: 30005297, color: {color: '#FFFFFF'}},
+       //Ouelletta -> Jufvitte, Loes
+       {from: 30005297, to: 30005308, color: {color: '#FFFFFF'}},
+       {from: 30005297, to: 30005300, color: {color: '#FFFFFF'}},
+       //Loes -> Agoze
+       {from: 30005300, to: 30003787, color: {color: '#FFFFFF'}},
+       //Agoze -> Annancale, Intaki, Vey, Ostingele
+       {from: 30003787, to: 30003791, color: {color: '#FFFFFF'}},
+       {from: 30003787, to: 30003788, color: {color: '#FFFFFF'}},
+       {from: 30003787, to: 30003790, color: {color: '#FFFFFF'}},
+       {from: 30003787, to: 30003792, color: {color: '#FFFFFF'}},
+       //Annancale -> Brarel
+       {from: 30003791, to: 30003789, color: {color: '#FFFFFF'}},
+       //Brarel -> Intaki
+       {from: 30003789, to: 30003788, color: {color: '#FFFFFF'}},
+       //Intaki -> Vey
+       {from: 30003788, to: 30003790, color: {color: '#FFFFFF'}},
+       //Vey -> Frarie
+       {from: 30003790, to: 30003826, color: {color: '#FFFFFF'}},
+       //
+       //Ostingele -> Alperaute, Pelille, Harroule, Dastryns, Stacmon
+       {from: 30003792, to: 30003800, color: {color: '#FFFFFF'}},
+       {from: 30003792, to: 30003806, color: {color: '#FFFFFF'}},
+       {from: 30003792, to: 30003793, color: {color: '#FFFFFF'}},
+       {from: 30003792, to: 30003797, color: {color: '#FFFFFF'}},
+       {from: 30003792, to: 30003794, color: {color: '#FFFFFF'}},
+       //Harroule -> MHC-R3
+       {from: 30003793, to: 30003268, color: {color: '#FFFFFF'}},
+       //Dastryns -> Uphallant, Iges, Stacmon
+       {from: 30003797, to: 30003799, color: {color: '#FFFFFF'}},
+       {from: 30003797, to: 30003796, color: {color: '#FFFFFF'}},
+       {from: 30003797, to: 30003794, color: {color: '#FFFFFF'}},
+       //Uphallant -> Iges
+       {from: 30003799, to: 30003796, color: {color: '#FFFFFF'}},
+       //Iges -> Slays, Covryn
+       {from: 30003796, to: 30003798, color: {color: '#FFFFFF'}},
+       {from: 30003796, to: 30003795, color: {color: '#FFFFFF'}},
+       //Slays -> Stacmon
+       {from: 30003798, to: 30003794, color: {color: '#FFFFFF'}},
+       //Stacmon -> Covryn
+       {from: 30003794, to: 30003795, color: {color: '#FFFFFF'}},
+       //Covryn -> Cumemare
+       {from: 30003795, to: 30003802, color: {color: '#FFFFFF'}},
+       //
+       //Oicx -> Vlillirier
+       {from: 30003838, to: 30003836, color: {color: '#FFFFFF'}},
+       //Vlillirier -> Alsavoinon, Renarelle, Aldranette
+       {from: 30003836, to: 30003841, color: {color: '#FFFFFF'}},
+       {from: 30003836, to: 30003829, color: {color: '#FFFFFF'}},
+       {from: 30003836, to: 30003837, color: {color: '#FFFFFF'}},
+       //Alsavoinon -> F7C-H0
+       {from: 30003841, to: 30004046, color: {color: '#FFFFFF'}},
+       //Aldranette -> Evaulon
+       {from: 30003837, to: 30003839, color: {color: '#FFFFFF'}},
+       //Evaulon -> Anchauttes
+       {from: 30003839, to: 30003840, color: {color: '#FFFFFF'}},
+       //Anchauttes -> Esesier, Odamia
+       {from: 30003840, to: 30003842, color: {color: '#FFFFFF'}},
+       {from: 30003840, to: 30003857, color: {color: '#FFFFFF'}},
+       //Odamia -> Arderonne, Alamel
+       {from: 30003857, to: 30003852, color: {color: '#FFFFFF'}},
+       {from: 30003857, to: 30003854, color: {color: '#FFFFFF'}},
+       //Alamel -> Arderonne, Mantenault
+       {from: 30003854, to: 30003852, color: {color: '#FFFFFF'}},
+       {from: 30003854, to: 30003855, color: {color: '#FFFFFF'}},
+       //Mantenault -> RQH-MY
+       {from: 30003855, to: 30002039, color: {color: '#FFFFFF'}},
+       //Arderonne -> Reschard
+       {from: 30003852, to: 30003851, color: {color: '#FFFFFF'}},
+       //Reschard -> Mercomesier, Alparena
+       {from: 30003851, to: 30003853, color: {color: '#FFFFFF'}},
+       {from: 30003851, to: 30003850, color: {color: '#FFFFFF'}},
+       //Mercomesier -> Athounon
+       {from: 30003853, to: 30003856, color: {color: '#FFFFFF'}},
+       //Alparena -> Maut
+       {from: 30003850, to: 30003835, color: {color: '#FFFFFF'}},
+       //Maut -> Adacyne, Osmeden
+       {from: 30003835, to: 30003832, color: {color: '#FFFFFF'}},
+       {from: 30003835, to: 30003831, color: {color: '#FFFFFF'}},
+       //Adacyne -> Chardalane, Osmeden
+       {from: 30003832, to: 30003834, color: {color: '#FFFFFF'}},
+       {from: 30003832, to: 30003831, color: {color: '#FFFFFF'}},
+       //Osmeden -> Orvolle
+       {from: 30003831, to: 30003830, color: {color: '#FFFFFF'}},
+       //
+       //Renarelle -> Moclinamaud, Aubenall
+       {from: 30003829, to: 30003828, color: {color: '#FFFFFF'}},
+       {from: 30003829, to: 30003827, color: {color: '#FFFFFF'}},
+       //Aubenall -> Oulley, Archavoinet, Eugales
+       {from: 30003827, to: 30003833, color: {color: '#FFFFFF'}},
+       {from: 30003827, to: 30003824, color: {color: '#FFFFFF'}},
+       {from: 30003827, to: 30003825, color: {color: '#FFFFFF'}},
+       //Moclinamaud -> Frarie, Eugales
+       {from: 30003828, to: 30003826, color: {color: '#FFFFFF'}},
+       {from: 30003828, to: 30003825, color: {color: '#FFFFFF'}},
+       //Eugales -> Archavoinet, Frarie
+       {from: 30003825, to: 30003824, color: {color: '#FFFFFF'}},
+       {from: 30003825, to: 30003826, color: {color: '#FFFFFF'}},
+       //Oulley -> Orvolle
+       {from: 30003833, to: 30003830, color: {color: '#FFFFFF'}},
+       //Orvolle -> Mesybier
+       {from: 30003830, to: 30004975, color: {color: '#FFFFFF'}},
+       //Mesybier -> Murethand
         //
     ]);
     

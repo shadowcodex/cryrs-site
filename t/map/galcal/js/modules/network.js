@@ -9,7 +9,12 @@ var data = {
 };
 var options = {
     "edges": {
-        "smooth": false
+        "smooth": {
+          "type": "continuous",
+          "forceDirection": "none",
+          "roundness": 0.15
+        },
+        width: 2
     },
     "nodes": {
         "shape": 'box',
@@ -26,6 +31,8 @@ var options = {
 // initialize your network!
 var network = new vis.Network(container, data, options);
 
+
+
 // DEBUG
 network.on("click", function(params){
     ga('send', 'event','click', 'gal click on map', "X: " + params.pointer.canvas.x/mapScale + " Y: " + params.pointer.canvas.y/mapScale , '2');
@@ -37,8 +44,24 @@ network.on("beforeDrawing", function (ctx) {
     ctx.lineWidth = 3;
     
     // Black rise
+    // create the off-screen canvas
+    var canvasPatternBR = document.createElement("canvas");
+    canvasPatternBR.width = 16;
+    canvasPatternBR.height = 16;
+    var contextPattern = canvasPatternBR.getContext("2d");
+    
+    // draw pattern to off-screen context
+    contextPattern.lineWidth = 6;
+    contextPattern.strokeStyle = regRise;
+    contextPattern.beginPath();
+    contextPattern.moveTo(16,16);
+    contextPattern.lineTo(0, 0);
+    contextPattern.stroke();
+    
+    // Draw Region
+    ctx.fillStyle = ctx.createPattern(canvasPatternBR, 'repeat');
     ctx.beginPath();
-    ctx.fillStyle = regRise;
+    //ctx.fillStyle = regRise;
     ctx.moveTo(-50*mapScale,-100*mapScale);
     ctx.lineTo(90*mapScale,115*mapScale);
     ctx.lineTo(430*mapScale,400*mapScale);
@@ -56,8 +79,24 @@ network.on("beforeDrawing", function (ctx) {
     ctx.fillText("Black Rise", 520*mapScale,190*mapScale);
     
     // Verge Vendor main
+    // create the off-screen canvas
+    var canvasPatternVV1 = document.createElement("canvas");
+    canvasPatternVV1.width = 16;
+    canvasPatternVV1.height = 16;
+    var contextPattern = canvasPatternVV1.getContext("2d");
+    
+    // draw pattern to off-screen context
+    contextPattern.lineWidth = 6;
+    contextPattern.strokeStyle = regVerge;
+    contextPattern.beginPath();
+    contextPattern.moveTo(16,16);
+    contextPattern.lineTo(0, 0);
+    contextPattern.stroke();
+    
+    // Draw Region
+    ctx.fillStyle = ctx.createPattern(canvasPatternVV1, 'repeat');
     ctx.beginPath();
-    ctx.fillStyle = regVerge; //'blue';
+    //ctx.fillStyle = regVerge; //'blue';
     ctx.moveTo(-50*mapScale,380*mapScale);
     ctx.lineTo(90*mapScale,500*mapScale);
     ctx.lineTo(230*mapScale,550*mapScale);
@@ -72,7 +111,8 @@ network.on("beforeDrawing", function (ctx) {
     
     // Verge vendor split
     ctx.beginPath();
-    ctx.fillStyle = regVerge;
+    //ctx.fillStyle = regVerge;
+    ctx.fillStyle = ctx.createPattern(canvasPatternVV1, 'repeat');
     ctx.moveTo(850*mapScale,240*mapScale);
     ctx.arcTo(735*mapScale,245*mapScale,730*mapScale,285*mapScale,20*mapScale);
     //ctx.arcTo(730*mapScale,285*mapScale,785*mapScale,305*mapScale,20*mapScale);
@@ -84,8 +124,24 @@ network.on("beforeDrawing", function (ctx) {
     ctx.fillText("Verge Vendor", 742*mapScale,265*mapScale);
     
     // Citadel
+    // create the off-screen canvas
+    var canvasPatternCIT = document.createElement("canvas");
+    canvasPatternCIT.width = 16;
+    canvasPatternCIT.height = 16;
+    var contextPattern = canvasPatternCIT.getContext("2d");
+    
+    // draw pattern to off-screen context
+    contextPattern.lineWidth = 6;
+    contextPattern.strokeStyle = regCitadel;
+    contextPattern.beginPath();
+    contextPattern.moveTo(16,16);
+    contextPattern.lineTo(0, 0);
+    contextPattern.stroke();
+    
+    // Draw Region
+    ctx.fillStyle = ctx.createPattern(canvasPatternCIT, 'repeat');
     ctx.beginPath();
-    ctx.fillStyle = regCitadel;
+    //ctx.fillStyle = regCitadel;
     ctx.moveTo(850*mapScale,305*mapScale);
     ctx.arcTo(755*mapScale,300*mapScale,685*mapScale,300*mapScale,30*mapScale);
     ctx.arcTo(685*mapScale,300*mapScale,655*mapScale,285*mapScale,30*mapScale);
@@ -99,8 +155,24 @@ network.on("beforeDrawing", function (ctx) {
     ctx.fillText("The Citadel", 720*mapScale,460*mapScale);
     
     // Essence
+    // create the off-screen canvas
+    var canvasPatternESS = document.createElement("canvas");
+    canvasPatternESS.width = 16;
+    canvasPatternESS.height = 16;
+    var contextPattern = canvasPatternESS.getContext("2d");
+    
+    // draw pattern to off-screen context
+    contextPattern.lineWidth = 6;
+    contextPattern.strokeStyle = regEssence;
+    contextPattern.beginPath();
+    contextPattern.moveTo(16,16);
+    contextPattern.lineTo(0, 0);
+    contextPattern.stroke();
+    
+    // Draw Region
+    ctx.fillStyle = ctx.createPattern(canvasPatternESS, 'repeat');
     ctx.beginPath();
-    ctx.fillStyle = regEssence;
+    //ctx.fillStyle = regEssence;
     ctx.moveTo(400*mapScale,700*mapScale);
     ctx.arcTo(370*mapScale,475*mapScale,400*mapScale,415*mapScale,30*mapScale);
     ctx.arcTo(400*mapScale,415*mapScale,400*mapScale,340*mapScale,30*mapScale);
@@ -117,7 +189,22 @@ network.on("beforeDrawing", function (ctx) {
     ctx.fillText("Essence", 580*mapScale,500*mapScale);
     
     // Placid
-    ctx.fillStyle = regPlacid;//'green';
+    // create the off-screen canvas
+    var canvasPatternPl = document.createElement("canvas");
+    canvasPatternPl.width = 16;
+    canvasPatternPl.height = 16;
+    var contextPattern = canvasPatternPl.getContext("2d");
+    
+    // draw pattern to off-screen context
+    contextPattern.lineWidth = 6;
+    contextPattern.strokeStyle = regPlacid;
+    contextPattern.beginPath();
+    contextPattern.moveTo(16,16);
+    contextPattern.lineTo(0, 0);
+    contextPattern.stroke();
+    
+    // Draw Region
+    ctx.fillStyle = ctx.createPattern(canvasPatternPl, 'repeat');
     ctx.beginPath();
     ctx.moveTo(-50*mapScale,-100*mapScale);
     ctx.arcTo(100*mapScale,105*mapScale,180*mapScale,115*mapScale,30*mapScale);
@@ -132,12 +219,30 @@ network.on("beforeDrawing", function (ctx) {
     ctx.arcTo(90*mapScale,510*mapScale,-50*mapScale,380*mapScale,30*mapScale);
     ctx.lineTo(-50*mapScale,380*mapScale);
     ctx.fill();
+    
+    // Draw Region Name
     ctx.fillStyle = 'white';
     ctx.fillText("Placid", 190*mapScale,355*mapScale);
     
     // Lonetrek
+    // create the off-screen canvas
+    var canvasPatternLT = document.createElement("canvas");
+    canvasPatternLT.width = 16;
+    canvasPatternLT.height = 16;
+    var contextPattern = canvasPatternLT.getContext("2d");
+    
+    // draw pattern to off-screen context
+    contextPattern.lineWidth = 6;
+    contextPattern.strokeStyle = regLone;
+    contextPattern.beginPath();
+    contextPattern.moveTo(16,16);
+    contextPattern.lineTo(0, 0);
+    contextPattern.stroke();
+    
+    // Draw Region
+    ctx.fillStyle = ctx.createPattern(canvasPatternLT, 'repeat');
     ctx.beginPath();
-    ctx.fillStyle = regLone;
+    //ctx.fillStyle = regLone;
     ctx.moveTo(350*mapScale,-100*mapScale);
     ctx.arcTo(350*mapScale,25*mapScale,375*mapScale,40*mapScale,30*mapScale);
     ctx.arcTo(375*mapScale,40*mapScale,395*mapScale,65*mapScale,30*mapScale);
@@ -152,7 +257,7 @@ network.on("beforeDrawing", function (ctx) {
     
     // Citadel split
     ctx.beginPath();
-    ctx.fillStyle = regCitadel;
+    ctx.fillStyle = ctx.createPattern(canvasPatternCIT, 'repeat');
     ctx.moveTo(635*mapScale,-100*mapScale);
     ctx.arcTo(560*mapScale,70*mapScale,630*mapScale,60*mapScale,30*mapScale);
     ctx.arcTo(630*mapScale,60*mapScale,680*mapScale,60*mapScale,30*mapScale);
@@ -268,6 +373,12 @@ network.on("beforeDrawing", function (ctx) {
     //ctx.closePath();
     
     ctx.stroke();
+});
+
+network.on("afterDrawing", function (ctx) {
+    ctx.font = '20px Glyphicons Halflings';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText(String.fromCharCode(0xe136), 142*mapScale, 56*mapScale);  
 });
 
 
