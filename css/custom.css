@@ -6,3 +6,59 @@
 .container {
     background-color:#222;
 }
+
+.post_link {
+    margin-bottom:3px;
+}
+
+.foot {
+    background-color:#333;
+    padding:10px;
+    font-size:12px;
+    margin-top:20px;
+}
+
+.img-responsive {
+    margin: 0 auto;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+}
+
+.ruler {
+    border-bottom-color: #ffffff;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+html, body {
+    background-image: url(/imgs/dark_mosaic.png);
+    /*background-size: cover;*/
+    background-repeat: repeat;
+    /*background-position: center;*/
+    /*background-attachment: fixed;*/
+    
+}
+
+.memeprop {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 25px;
+    max-width: 60%;
+}
+
+.memelink {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.beutybtn {
+    max-width: 60%;
+    display:block;
+    margin-left: auto;
+    margin-right:auto;
+}

@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>{{page.title}}</title>
+        <link rel="stylesheet" href="/css/boot.css" type="text/css" />
+        <link rel="stylesheet" href="/css/custom.css" type="text/css" />
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        
+          ga('create', 'UA-96338983-1', 'auto');
+          ga('send', 'pageview');
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            {% include header.html %}
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Recent Posts:</div>
+                        <div class="panel-body">
+                            {% for post in site.posts %}
+                                <div class="post_link"><a href="{{post.url}}">[ <small class="text-info">{{post.date | date_to_long_string}}</small> ] {{post.title}}</span></a></div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <h2>{{page.title}}</h2>
+                    <div class="panel panel-danger">
+                        <div class="panel-heading">{{page.date}}</div>
+                        <div class="panel-body">
+                            {{page.content}}                
+                        </div>
+                        <div class="panel-footer">
+                            By: {{page.author}} <span class="pull-right"><a href="{{page.url}}">Article Link</a></span>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row foot">
+                <div class="col-md-12">
+                    {% include footer.html %}        
+                </div>
+            </div>
+        </div>
+        <script src="/js/query.js"></script>
+        <script src="/js/boot.js"></script>
+    </body>
+</html>
