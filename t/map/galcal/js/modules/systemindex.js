@@ -8,7 +8,7 @@ var updateNodes = function(){
             // Ping Google
             ga('send', 'event','Systems', 'Gal Systems Updated', performance.now().toString() , '0');
             // do something with data
-            $('#systems tbody').remove();
+            $('#systems tbody').empty();
             $('#systems').append('<tbody></tbody>');
             $.each(data.data, function(i, item){
                 //console.log(i, item);
