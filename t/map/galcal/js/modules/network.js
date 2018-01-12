@@ -59,7 +59,7 @@ network.on("beforeDrawing", function (ctx) {
     contextPattern.stroke();
     
     // Draw Region
-    ctx.fillStyle = ctx.createPattern(canvasPatternBR, 'repeat');
+    //ctx.fillStyle = ctx.createPattern(canvasPatternBR, 'repeat');
     ctx.beginPath();
     //ctx.fillStyle = regRise;
     ctx.moveTo(-50*mapScale,-100*mapScale);
@@ -94,7 +94,7 @@ network.on("beforeDrawing", function (ctx) {
     contextPattern.stroke();
     
     // Draw Region
-    ctx.fillStyle = ctx.createPattern(canvasPatternVV1, 'repeat');
+    //ctx.fillStyle = ctx.createPattern(canvasPatternVV1, 'repeat');
     ctx.beginPath();
     //ctx.fillStyle = regVerge; //'blue';
     ctx.moveTo(-50*mapScale,380*mapScale);
@@ -112,7 +112,7 @@ network.on("beforeDrawing", function (ctx) {
     // Verge vendor split
     ctx.beginPath();
     //ctx.fillStyle = regVerge;
-    ctx.fillStyle = ctx.createPattern(canvasPatternVV1, 'repeat');
+    //ctx.fillStyle = ctx.createPattern(canvasPatternVV1, 'repeat');
     ctx.moveTo(850*mapScale,240*mapScale);
     ctx.arcTo(735*mapScale,245*mapScale,730*mapScale,285*mapScale,20*mapScale);
     //ctx.arcTo(730*mapScale,285*mapScale,785*mapScale,305*mapScale,20*mapScale);
@@ -139,7 +139,7 @@ network.on("beforeDrawing", function (ctx) {
     contextPattern.stroke();
     
     // Draw Region
-    ctx.fillStyle = ctx.createPattern(canvasPatternCIT, 'repeat');
+    //ctx.fillStyle = ctx.createPattern(canvasPatternCIT, 'repeat');
     ctx.beginPath();
     //ctx.fillStyle = regCitadel;
     ctx.moveTo(850*mapScale,305*mapScale);
@@ -170,7 +170,7 @@ network.on("beforeDrawing", function (ctx) {
     contextPattern.stroke();
     
     // Draw Region
-    ctx.fillStyle = ctx.createPattern(canvasPatternESS, 'repeat');
+    //ctx.fillStyle = ctx.createPattern(canvasPatternESS, 'repeat');
     ctx.beginPath();
     //ctx.fillStyle = regEssence;
     ctx.moveTo(400*mapScale,700*mapScale);
@@ -204,7 +204,7 @@ network.on("beforeDrawing", function (ctx) {
     contextPattern.stroke();
     
     // Draw Region
-    ctx.fillStyle = ctx.createPattern(canvasPatternPl, 'repeat');
+    //ctx.fillStyle = ctx.createPattern(canvasPatternPl, 'repeat');
     ctx.beginPath();
     ctx.moveTo(-50*mapScale,-100*mapScale);
     ctx.arcTo(100*mapScale,105*mapScale,180*mapScale,115*mapScale,30*mapScale);
@@ -240,7 +240,7 @@ network.on("beforeDrawing", function (ctx) {
     contextPattern.stroke();
     
     // Draw Region
-    ctx.fillStyle = ctx.createPattern(canvasPatternLT, 'repeat');
+    //ctx.fillStyle = ctx.createPattern(canvasPatternLT, 'repeat');
     ctx.beginPath();
     //ctx.fillStyle = regLone;
     ctx.moveTo(350*mapScale,-100*mapScale);
@@ -257,7 +257,7 @@ network.on("beforeDrawing", function (ctx) {
     
     // Citadel split
     ctx.beginPath();
-    ctx.fillStyle = ctx.createPattern(canvasPatternCIT, 'repeat');
+    //ctx.fillStyle = ctx.createPattern(canvasPatternCIT, 'repeat');
     ctx.moveTo(635*mapScale,-100*mapScale);
     ctx.arcTo(560*mapScale,70*mapScale,630*mapScale,60*mapScale,30*mapScale);
     ctx.arcTo(630*mapScale,60*mapScale,680*mapScale,60*mapScale,30*mapScale);
