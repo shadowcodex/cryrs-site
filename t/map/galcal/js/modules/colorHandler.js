@@ -85,8 +85,8 @@ var endHighlight = function(id, caller){
 var checkSystemHash = function(id){
     if(colors[id] == null){
         colors[id] = {};
+		colors[id].lock = false;
     }
-    colors[id].lock = false;
 };
 
 var checkCanIEnd = function(id, caller){
@@ -114,7 +114,7 @@ var lockEndHighlight = function(id,caller){
 
 var lockHighlight = function(id, caller, color){
     // check if someone is currently calculating themselves... if not move forward, if so wait...
-    checkSystemHash(id);
+    checkSystemHash(id); //
     var intervalId = window.setInterval(function(){
        if(colors[id].lock == false) {
             colors[id].lock = true;
@@ -126,7 +126,7 @@ var lockHighlight = function(id, caller, color){
 };
 
 var lockUpdateBaseColor = function(id,color){
-    checkSystemHash(id);
+    checkSystemHash(id); //
     var intervalId = window.setInterval(function(){
        if(colors[id].lock == false) {
             colors[id].lock = true;
