@@ -172,11 +172,11 @@ setInterval(function(){
                             deathStat(item.killmail);
                             kills.push(item.killID);
                             // flash the map
-                            flashNodeColor(item.killmail.solar_system_id, parseSolarSystem(item.killmail.solar_system_id), item.killID, '#ff4949');
+                            flashNodeColor(item.killmail.solar_system_id, parseSolarSystem(item.killmail.solar_system_id).split(" ")[0], item.killID, '#ff4949');
 							
 							// add item to the list
                             $('#kills tbody').prepend(`
-                                <tr `+ ifFEDUP(item.killmail) +` data-killid="` + item.killID + `">
+                                <tr `+ ifFEDUP(item.killmail) +` data-systemid="` + item.killmail.solar_system_id + `">
                                     <td>` + moneyFormat(item.zkb.totalValue) + `</td>
                                     <td>` + item.killmail.killmail_time.toString().substring(item.killmail.killmail_time.length - 9,item.killmail.killmail_time.length - 4) + `</td>
                                     <td><a target="_blank" href="https://zkillboard.com/kill/` + item.killID+ `/"><img id="` + item.killID + `ship" class="s16" src="https://imageserver.eveonline.com/Render/` + item.killmail.victim.ship_type_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+parseShipName(item.killmail.victim.ship_type_id)+`"></a></td>
@@ -188,6 +188,7 @@ setInterval(function(){
                             $('#'+item.killID+'vcorp').tooltip();
                             $('#'+item.killID+'acorp').tooltip();
                             $('#'+item.killID+'ship').tooltip();
+							console.log($('#killboard tr[data-systemid]'));
                         }  
                     }
                 });
