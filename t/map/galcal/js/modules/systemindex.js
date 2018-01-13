@@ -8,6 +8,8 @@ var updateNodes = function(){
             // Ping Google
             ga('send', 'event','Systems', 'Gal Systems Updated', performance.now().toString() , '0');
             // do something with data
+			
+			//BUG Tbody not being emptied properly. Stacking this table with a bunch of duplicates
             $('#systems tbody').remove();
             $('#systems').append('<tbody></tbody>');
             $.each(data.data, function(i, item){
