@@ -13,7 +13,7 @@ var updateNodes = function(){
             // do something with data
 			
 			//BUG Tbody not being emptied properly. Stacking this table with a bunch of duplicates
-            $('#systems tbody').remove();
+            $('#systems tbody').empty();
             $('#systems').append('<tbody></tbody>');
             $.each(data.data, function(i, item){
                 //console.log(i, item);
