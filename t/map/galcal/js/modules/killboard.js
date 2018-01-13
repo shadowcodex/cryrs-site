@@ -55,10 +55,10 @@ var deathStat = function(killmail){
     }
 }
 
-var getFinalBlow = function(killID, attackers) {
+var getFinalBlow = function(systemID, attackers) {
     for(var i in attackers) {
         if(attackers[i].final_blow == true) {
-            if(attackers[i].character_id != null) return parseCharacter(killID, attackers[i].character_id);
+            if(attackers[i].character_id != null) return parseCharacter(systemID, attackers[i].character_id);
 			else if (attackers[i].corporation_id != null) return "NPC";
         }
     }
@@ -74,16 +74,16 @@ var getFinalBlowCorpID = function(attackers) {
     return 98505199;
 };
 
-var getFinalBlowCorpName = function(killID, attackers) {
+var getFinalBlowCorpName = function(systemID, attackers) {
     for( var i in attackers) {
         if(attackers[i].final_blow == true){
-            if(attackers[i].corporation_id != null) return parseCorporation(killID, attackers[i].corporation_id);
+            if(attackers[i].corporation_id != null) return parseCorporation(systemID, attackers[i].corporation_id);
         } 
     }
     return 'CRYRS - Unknown';
 };
 
-function parseCharacter(killID, id, victim) {
+function parseCharacter(systemID, id, victim) {
 	//BUG AJAX manipulation is breaking tooltips... 
 	$.ajax({
             url: 'https://esi.tech.ccp.is/latest/characters/' + id + '/?datasource=tranquility',
@@ -97,17 +97,17 @@ function parseCharacter(killID, id, victim) {
             },
             success: function(data){
 				if (victim) {
-					var name = $("[data-killid=" + killID + "]")[0].children[4].innerHTML.replace(id, data.name);
-					$("[data-killid=" + killID + "]")[0].children[4].innerHTML = name;
+					var name = $("[data-systemid=" + systemID + "]")[0].children[4].innerHTML.replace(id, data.name);
+					$("[data-systemid=" + systemID + "]")[0].children[4].innerHTML = name;
 				} else {
-					var name = $("[data-killid=" + killID + "]")[0].children[5].innerHTML.replace(id, data.name);
-					$("[data-killid=" + killID + "]")[0].children[5].innerHTML = name;
+					var name = $("[data-systemid=" + systemID + "]")[0].children[5].innerHTML.replace(id, data.name);
+					$("[data-systemid=" + systemID + "]")[0].children[5].innerHTML = name;
 				}
 			}
 	});
 	return id;
 }
-function parseCorporation(killID, id, victim) {
+function parseCorporation(systemID, id, victim) {
 	//BUG AJAX manipulation is breaking tooltips...
 	$.ajax({
             url: 'https://esi.tech.ccp.is/latest/corporations/' + id + '/?datasource=tranquility',
@@ -121,11 +121,11 @@ function parseCorporation(killID, id, victim) {
             },
             success: function(data){
 				if (victim) {
-					var name = $("[data-killid=" + killID + "]")[0].children[4].innerHTML.replace(id, data.name);
-					$("[data-killid=" + killID + "]")[0].children[4].innerHTML = name;
+					var name = $("[data-systemid=" + systemID + "]")[0].children[4].innerHTML.replace(id, data.name);
+					$("[data-systemid=" + systemID + "]")[0].children[4].innerHTML = name;
 				} else {
-					var name = $("[data-killid=" + killID + "]")[0].children[5].innerHTML.replace(id, data.name);
-					$("[data-killid=" + killID + "]")[0].children[5].innerHTML = name;
+					var name = $("[data-systemid=" + systemID + "]")[0].children[5].innerHTML.replace(id, data.name);
+					$("[data-systemid=" + systemID + "]")[0].children[5].innerHTML = name;
 				}
 			}
 	});
@@ -181,8 +181,8 @@ setInterval(function(){
                                     <td>` + item.killmail.killmail_time.toString().substring(item.killmail.killmail_time.length - 9,item.killmail.killmail_time.length - 4) + `</td>
                                     <td><a target="_blank" href="https://zkillboard.com/kill/` + item.killID+ `/"><img id="` + item.killID + `ship" class="s16" src="https://imageserver.eveonline.com/Render/` + item.killmail.victim.ship_type_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+parseShipName(item.killmail.victim.ship_type_id)+`"></a></td>
                                     <td>` + parseSolarSystem(item.killmail.solar_system_id) + `</td>
-                                    <td><a target="_blank" href="https://zkillboard.com/corporation/` + item.killmail.victim.corporation_id + `/"><img id="` + item.killID + `vcorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + item.killmail.victim.corporation_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+parseCorporation(item.killID, item.killmail.victim.corporation_id, true)+`"></a>&nbsp; ` + parseCharacter(item.killID, item.killmail.victim.character_id, true) + `</td>
-                                    <td><a target="_blank" href="https://zkillboard.com/corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `/"><img id="` + item.killID + `acorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+getFinalBlowCorpName(item.killID, item.killmail.attackers)+`"></a>&nbsp;` + getFinalBlow(item.killID, item.killmail.attackers) + `&nbsp;(` +  item.killmail.attackers.length + `)</td>
+                                    <td><a target="_blank" href="https://zkillboard.com/corporation/` + item.killmail.victim.corporation_id + `/"><img id="` + item.killID + `vcorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + item.killmail.victim.corporation_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+parseCorporation(item.killmail.solar_system_id, item.killmail.victim.corporation_id, true)+`"></a>&nbsp; ` + parseCharacter(item.killmail.solar_system_id, item.killmail.victim.character_id, true) + `</td>
+                                    <td><a target="_blank" href="https://zkillboard.com/corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `/"><img id="` + item.killID + `acorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+getFinalBlowCorpName(item.killmail.solar_system_id, item.killmail.attackers)+`"></a>&nbsp;` + getFinalBlow(item.killmail.solar_system_id, item.killmail.attackers) + `&nbsp;(` +  item.killmail.attackers.length + `)</td>
                                 </tr>
                             `);
                             $('#'+item.killID+'vcorp').tooltip();
