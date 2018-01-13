@@ -4,11 +4,16 @@ var updateNodes = function(){
     //console.log(nodes.get({}), 'hey');
     $.ajax({
         url: 'http://services.jerkasauruswrecks.com:3000/fw/report',
+		error: function() {
+			console.log("Failed to fetch warzone data");
+		},
         success: function(data){
             // Ping Google
             ga('send', 'event','Systems', 'Gal Systems Updated', performance.now().toString() , '0');
             // do something with data
-            $('#systems tbody').remove();
+			
+			//BUG Tbody not being emptied properly. Stacking this table with a bunch of duplicates
+            $('#systems tbody').empty();
             $('#systems').append('<tbody></tbody>');
             $.each(data.data, function(i, item){
                 //console.log(i, item);
@@ -55,6 +60,18 @@ var updateNodes = function(){
     });  
 };
 updateNodes();
+var nextUpdate = 0;
 setInterval(function(){
+	var now = new Date().getTime();
+	nextUpdate = now + 900000;
     updateNodes();
 },900000);
+setInterval(function() {
+	var now = new Date().getTime();
+	var distance = Math.abs(nextUpdate - now);
+	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+	
+	var e = $('#system')[0].children[0].children[0];
+	e.innerHTML = e.innerHTML.substring(0, e.innerHTML.indexOf(": ") + 1) + " " + (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+}, 1000);

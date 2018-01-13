@@ -59,9 +59,9 @@ network.on("beforeDrawing", function (ctx) {
     contextPattern.stroke();
     
     // Draw Region
-    ctx.fillStyle = ctx.createPattern(canvasPatternBR, 'repeat');
+    //ctx.fillStyle = ctx.createPattern(canvasPatternBR, 'repeat');
     ctx.beginPath();
-    //ctx.fillStyle = regRise;
+    ctx.fillStyle = regRise;
     ctx.moveTo(-50*mapScale,-100*mapScale);
     ctx.lineTo(90*mapScale,115*mapScale);
     ctx.lineTo(430*mapScale,400*mapScale);
@@ -94,9 +94,9 @@ network.on("beforeDrawing", function (ctx) {
     contextPattern.stroke();
     
     // Draw Region
-    ctx.fillStyle = ctx.createPattern(canvasPatternVV1, 'repeat');
+    //ctx.fillStyle = ctx.createPattern(canvasPatternVV1, 'repeat');
     ctx.beginPath();
-    //ctx.fillStyle = regVerge; //'blue';
+    ctx.fillStyle = regVerge; //'blue';
     ctx.moveTo(-50*mapScale,380*mapScale);
     ctx.lineTo(90*mapScale,500*mapScale);
     ctx.lineTo(230*mapScale,550*mapScale);
@@ -111,8 +111,8 @@ network.on("beforeDrawing", function (ctx) {
     
     // Verge vendor split
     ctx.beginPath();
-    //ctx.fillStyle = regVerge;
-    ctx.fillStyle = ctx.createPattern(canvasPatternVV1, 'repeat');
+    ctx.fillStyle = regVerge;
+    //ctx.fillStyle = ctx.createPattern(canvasPatternVV1, 'repeat');
     ctx.moveTo(850*mapScale,240*mapScale);
     ctx.arcTo(735*mapScale,245*mapScale,730*mapScale,285*mapScale,20*mapScale);
     //ctx.arcTo(730*mapScale,285*mapScale,785*mapScale,305*mapScale,20*mapScale);
@@ -139,9 +139,9 @@ network.on("beforeDrawing", function (ctx) {
     contextPattern.stroke();
     
     // Draw Region
-    ctx.fillStyle = ctx.createPattern(canvasPatternCIT, 'repeat');
+    //ctx.fillStyle = ctx.createPattern(canvasPatternCIT, 'repeat');
     ctx.beginPath();
-    //ctx.fillStyle = regCitadel;
+    ctx.fillStyle = regCitadel;
     ctx.moveTo(850*mapScale,305*mapScale);
     ctx.arcTo(755*mapScale,300*mapScale,685*mapScale,300*mapScale,30*mapScale);
     ctx.arcTo(685*mapScale,300*mapScale,655*mapScale,285*mapScale,30*mapScale);
@@ -170,9 +170,9 @@ network.on("beforeDrawing", function (ctx) {
     contextPattern.stroke();
     
     // Draw Region
-    ctx.fillStyle = ctx.createPattern(canvasPatternESS, 'repeat');
+    //ctx.fillStyle = ctx.createPattern(canvasPatternESS, 'repeat');
     ctx.beginPath();
-    //ctx.fillStyle = regEssence;
+    ctx.fillStyle = regEssence;
     ctx.moveTo(400*mapScale,700*mapScale);
     ctx.arcTo(370*mapScale,475*mapScale,400*mapScale,415*mapScale,30*mapScale);
     ctx.arcTo(400*mapScale,415*mapScale,400*mapScale,340*mapScale,30*mapScale);
@@ -204,8 +204,9 @@ network.on("beforeDrawing", function (ctx) {
     contextPattern.stroke();
     
     // Draw Region
-    ctx.fillStyle = ctx.createPattern(canvasPatternPl, 'repeat');
+    //ctx.fillStyle = ctx.createPattern(canvasPatternPl, 'repeat');
     ctx.beginPath();
+	ctx.fillStyle = regPlacid;
     ctx.moveTo(-50*mapScale,-100*mapScale);
     ctx.arcTo(100*mapScale,105*mapScale,180*mapScale,115*mapScale,30*mapScale);
     ctx.arcTo(180*mapScale,115*mapScale,250*mapScale,220*mapScale,30*mapScale);
@@ -240,9 +241,9 @@ network.on("beforeDrawing", function (ctx) {
     contextPattern.stroke();
     
     // Draw Region
-    ctx.fillStyle = ctx.createPattern(canvasPatternLT, 'repeat');
+    //ctx.fillStyle = ctx.createPattern(canvasPatternLT, 'repeat');
     ctx.beginPath();
-    //ctx.fillStyle = regLone;
+    ctx.fillStyle = regLone;
     ctx.moveTo(350*mapScale,-100*mapScale);
     ctx.arcTo(350*mapScale,25*mapScale,375*mapScale,40*mapScale,30*mapScale);
     ctx.arcTo(375*mapScale,40*mapScale,395*mapScale,65*mapScale,30*mapScale);
@@ -257,7 +258,8 @@ network.on("beforeDrawing", function (ctx) {
     
     // Citadel split
     ctx.beginPath();
-    ctx.fillStyle = ctx.createPattern(canvasPatternCIT, 'repeat');
+	ctx.fillStyle = regCitadel;
+    //ctx.fillStyle = ctx.createPattern(canvasPatternCIT, 'repeat');
     ctx.moveTo(635*mapScale,-100*mapScale);
     ctx.arcTo(560*mapScale,70*mapScale,630*mapScale,60*mapScale,30*mapScale);
     ctx.arcTo(630*mapScale,60*mapScale,680*mapScale,60*mapScale,30*mapScale);

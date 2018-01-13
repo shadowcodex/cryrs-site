@@ -13,6 +13,15 @@
     var regPlacid = '#3e513e', regVerge = '#3d3c2d', regEssence = '#2f3f3e', regCitadel = '#3b2f3f', regRise = '#333844', regLone = '#3d2a2a';
     var mapScale = 2.4;
 
+	// ENUM for common ID lookup
+	var idEnum = Object.freeze(
+	{
+		CalMil: 500001,
+		GalMil: 500004,
+		FEDUP: 99007289,
+		
+	});
+	
     // Hash Map for Colors
     var colors = {};
     
