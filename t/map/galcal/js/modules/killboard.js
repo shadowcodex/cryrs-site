@@ -59,6 +59,7 @@ var getFinalBlow = function(killID, attackers) {
     for(var i in attackers) {
         if(attackers[i].final_blow == true) {
             if(attackers[i].character_id != null) return parseCharacter(killID, attackers[i].character_id);
+			else if (attackers[i].corporation_id != null) return "NPC";
         }
     }
     return 'unknown';
@@ -83,7 +84,7 @@ var getFinalBlowCorpName = function(killID, attackers) {
 };
 
 function parseCharacter(killID, id, victim) {
-	//TODO
+	//BUG AJAX manipulation is breaking tooltips... 
 	$.ajax({
             url: 'https://esi.tech.ccp.is/latest/characters/' + id + '/?datasource=tranquility',
             type: 'GET',
@@ -107,7 +108,7 @@ function parseCharacter(killID, id, victim) {
 	return id;
 }
 function parseCorporation(killID, id, victim) {
-	//TODO
+	//BUG AJAX manipulation is breaking tooltips...
 	$.ajax({
             url: 'https://esi.tech.ccp.is/latest/corporations/' + id + '/?datasource=tranquility',
             type: 'GET',
