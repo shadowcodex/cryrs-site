@@ -1,29 +1,58 @@
 /*global $, kills, systems, flashNodeColor, moneyFormat, lockHighlight, lockEndHighlight, performance */
 
 //TODO This needs to be rewritten. None of these checks actually mean anything. They aren't returning the cases that are described in the help menu at all.
-var ifFEDUP = function(killmail){
-	// Compare to FEDUP ID
-    if(killmail.victim.alliance_id != null && killmail.victim.alliance_id == idEnum.FEDUP) return 'class="text-danger"';
-    else if (killmail.victim.faction_id != null) {
-		// Compare to GalMil ID
-        if(killmail.victim.faction_id == idEnum.GalMil) return 'class="text-danger"';
-		// Compare to CalMil ID
-        if(killmail.victim.faction_id == idEnum.CalMil) return 'class="text-info"';
-    }
-    
+
+/*
+Required states:
+	- Pirates only (White)
+	- Pirate kills CalMil (Grey)
+	- Pirate kills GalMil (Red)
+	- CalMil kills GalMil (Blue)
+	- CalMil kills Pirate (Lblue)
+	- Galmil kills CalMil (Green)
+	- GalMil kills Pirate (Yellow)
+*/
+var isFW = function(killmail){
+    var killer = "";
+	var victim = "";
+	// Loop to find the killer, store who done it.
     for(var i in killmail.attackers){
         if(killmail.attackers[i].final_blow == true) {
-            if(killmail.attackers[i].alliance_id != null){
-				// if FEDUP
-                if(killmail.attackers[i].alliance_id == idEnum.FEDUP) return 'class="text-success"';
-            } else if (killmail.attackers[i].faction_id != null){
-				// if GalMil
-                if(killmail.attackers[i].faction_id == idEnum.GalMil) return 'class="text-success"';
-				// if CalMil
-                if(killmail.attackers[i].faction_id == idEnum.CalMil) return 'class="text-warning"';
-            }
+            if (killmail.attackers[i].faction_id != null){
+                if(killmail.attackers[i].faction_id == idEnum.GalMil) killer = "GALMIL";
+                if(killmail.attackers[i].faction_id == idEnum.CalMil) killer = "CALMIL";
+            } else killer = "PIRATE";
         }
     }
+	
+	if (killmail.victim.faction_id != null) { // If the victim is in the militia
+        if(killmail.victim.faction_id == idEnum.GalMil) victim = "GALMIL";
+        if(killmail.victim.faction_id == idEnum.CalMil) victim = "CALMIL";
+    } else victim = "PIRATE";
+	
+	// I hate trying to keep track of states like this in ^^^^ that kind of code so.... splitting it off
+	switch(killer) {
+		case "PIRATE":
+			if (victim == "PIRATE") return killColor.WHITE;
+			if (victim == "CALMIL") return killColor.MUTED;
+			if (victim == "GALMIL") return killColor.GREY;
+			break;
+			
+		case "CALMIL":
+			if (victim == "PIRATE") return killColor.LBLUE;
+			if (victim == "CALMIL") return killColor.RED;
+			if (victim == "GALMIL") return killColor.BLUE;
+			break;
+			
+		case "GALMIL":
+			if (victim == "PIRATE") return killColor.YELLOW;
+			if (victim == "CALMIL") return killColor.GREEN;
+			if (victim == "GALMIL") return killColor.RED;
+			break;
+		
+		default:
+			return killColor.WHITE;
+	}
     
     return '';
 }
@@ -184,7 +213,7 @@ setInterval(function(){
 							
 							// add item to the list
                             $('#kills tbody').prepend(`
-                                <tr `+ ifFEDUP(item.killmail) +` data-systemid="` + item.killmail.solar_system_id + `">
+                                <tr `+ isFW(item.killmail) +` data-systemid="` + item.killmail.solar_system_id + `">
                                     <td>` + moneyFormat(item.zkb.totalValue) + `</td>
                                     <td>` + item.killmail.killmail_time.toString().substring(item.killmail.killmail_time.length - 9,item.killmail.killmail_time.length - 4) + `</td>
                                     <td><a target="_blank" href="https://zkillboard.com/kill/` + item.killID+ `/"><img id="` + item.killID + `ship" class="s16" src="https://imageserver.eveonline.com/Render/` + item.killmail.victim.ship_type_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+parseShipName(item.killmail.victim.ship_type_id)+`"></a></td>
