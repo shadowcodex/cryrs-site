@@ -88,8 +88,8 @@ var deathStat = function(killmail){
 var getFinalBlow = function(killID, attackers) {
     for(var i in attackers) {
         if(attackers[i].final_blow == true) {
-            if(attackers[i].character_id != null) return parseCharacter(killID, attackers[i].character_id, false);
-			else if (attackers[i].corporation_id != null) return "NPC";
+            if(attackers[i].character_id != null) return parseCharacter(killID, attackers[i].character_id, attackers[i].corporation_id, false);
+			else if (attackers[i].corporation_id != null) parseCharacter(killID, "NPC", attackers[i].corporation_id, false);
         }
     }
     return 'unknown';
@@ -113,62 +113,55 @@ var getFinalBlowCorpID = function(attackers) {
     return 98505199;
 };
 
-var getFinalBlowCorpName = function(killID, attackers) {
-    for( var i in attackers) {
-        if(attackers[i].final_blow == true){
-            if(attackers[i].corporation_id != null) return parseCorporation(killID, attackers[i].corporation_id, false);
-        } 
-    }
-    return 'Unknown';
-};
-
-function parseCharacter(killID, id, victim) {
+function parseCharacter(killID, charID, corpID, victim) {
 	$.ajax({
-            url: 'https://esi.tech.ccp.is/latest/characters/' + id + '/?datasource=tranquility',
+            url: 'https://esi.tech.ccp.is/latest/characters/' + charID + '/?datasource=tranquility',
             type: 'GET',
             crossDomain: true,
 			headers: {
 				'Accept':'application/json',
 			},
             error: function(data){
-				console.log("Failed to fetch character info for: " + id);
+				console.log("Failed to fetch character info for: " + charID);
             },
             success: function(data){
 				if (victim) {
 					var e = $("#" + killID + "vcorp")[0].parentElement.parentElement;
-					e.innerHTML = e.innerHTML.replace(" " + id, " " + data.name);
-				} else {
+					e.innerHTML = e.innerHTML.replace(" " + charID, " " + data.name);
+				} else if (!isNaN(charID)) {
 					var e = $("#" + killID + "acorp")[0].parentElement.parentElement;
-					e.innerHTML = e.innerHTML.replace(" " + id, " " + data.name);
+					e.innerHTML = e.innerHTML.replace(" " + charID, " " + data.name);
 				}
+				
+				parseCorporation(killID, corpID, victim);
 			}
 	});
-	return id;
+	return charID;
 }
-function parseCorporation(killID, id, victim) {
+function parseCorporation(killID, corpID, victim) {
 	$.ajax({
-            url: 'https://esi.tech.ccp.is/latest/corporations/' + id + '/?datasource=tranquility',
+            url: 'https://esi.tech.ccp.is/latest/corporations/' + corpID + '/?datasource=tranquility',
             type: 'GET',
             crossDomain: true,
 			headers: {
 				'Accept':'application/json',
 			},
             error: function(data){
-				console.log("Failed to fetch corporation info for: " + id);
+				console.log("Failed to fetch corporation info for: " + corpID);
             },
             success: function(data){
 				if (victim) {
 					var e = $("#" + killID + "vcorp");
-					e[0].title = data.name;
+					e.attr("title", data.name);
 					e.tooltip();
 				} else {
 					var e = $("#" + killID + "acorp");
-					e[0].title = data.name;
+					e.attr("title", data.name);
 					e.tooltip();
 				}
 			}
 	});
-	return id;
+	return corpID;
 }
 function parseAlliance(id) {
 	//TODO Probably not needed
@@ -188,7 +181,7 @@ function parseShipName(killID, id) {
             },
             success: function(data){
 				var e = $("#" + killID + "ship");
-				e[0].title = data.name;
+				e.attr("title", data.name);
 				e.tooltip();
 			}
 	});
@@ -242,12 +235,8 @@ setInterval(function(){
                             `);
 							
 							parseShipName(item.killID, item.killmail.victim.ship_type_id); // Ship type
-							parseCorporation(item.killID, item.killmail.victim.corporation_id, true); // Victim corp
-							parseCharacter(item.killID, item.killmail.victim.character_id, true); // Victim name
-							getFinalBlowCorpName(item.killID, item.killmail.attackers); // Killer corp
+							parseCharacter(item.killID, item.killmail.victim.character_id, item.killmail.victim.corporation_id, true); // Victim name
 							getFinalBlow(item.killID, item.killmail.attackers); // Killer name
-							
-                            //$('#'+item.killID+'ship').tooltip();
                         }  
                     }
                 });
