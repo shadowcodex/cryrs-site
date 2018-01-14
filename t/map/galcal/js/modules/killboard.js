@@ -1,9 +1,10 @@
 /*global $, kills, systems, flashNodeColor, moneyFormat, lockHighlight, lockEndHighlight, performance */
+
+//TODO This needs to be rewritten. None of these checks actually mean anything. They aren't returning the cases that are described in the help menu at all.
 var ifFEDUP = function(killmail){
-    if(killmail.victim.alliance_id != null){
-		// Compare to FEDUP ID
-        if(killmail.victim.alliance_id == idEnum.FEDUP) return 'class="text-danger"';
-    } else if (killmail.victim.faction_id != null) {
+	// Compare to FEDUP ID
+    if(killmail.victim.alliance_id != null && killmail.victim.alliance_id == idEnum.FEDUP) return 'class="text-danger"';
+    else if (killmail.victim.faction_id != null) {
 		// Compare to GalMil ID
         if(killmail.victim.faction_id == idEnum.GalMil) return 'class="text-danger"';
 		// Compare to CalMil ID
@@ -55,15 +56,24 @@ var deathStat = function(killmail){
     }
 }
 
-var getFinalBlow = function(systemID, attackers) {
+var getFinalBlow = function(killID, attackers) {
     for(var i in attackers) {
         if(attackers[i].final_blow == true) {
-            if(attackers[i].character_id != null) return parseCharacter(systemID, attackers[i].character_id);
+            if(attackers[i].character_id != null) return parseCharacter(killID, attackers[i].character_id, false);
 			else if (attackers[i].corporation_id != null) return "NPC";
         }
     }
     return 'unknown';
 };
+
+var getFinalBlowID = function(attackers) {
+	for(var i in attackers) {
+		if (attackers[i].final_blow == true) {
+			if(attackers[i].character_id != null) return attackers[i].character_id;
+			else if (attackers[i].corporation_id != null) return "NPC";
+		}
+	}
+}
 
 var getFinalBlowCorpID = function(attackers) {
     for( var i in attackers) {
@@ -74,16 +84,16 @@ var getFinalBlowCorpID = function(attackers) {
     return 98505199;
 };
 
-var getFinalBlowCorpName = function(systemID, attackers) {
+var getFinalBlowCorpName = function(killID, attackers) {
     for( var i in attackers) {
         if(attackers[i].final_blow == true){
-            if(attackers[i].corporation_id != null) return parseCorporation(systemID, attackers[i].corporation_id);
+            if(attackers[i].corporation_id != null) return parseCorporation(killID, attackers[i].corporation_id, false);
         } 
     }
-    return 'CRYRS - Unknown';
+    return 'Unknown';
 };
 
-function parseCharacter(systemID, id, victim) {
+function parseCharacter(killID, id, victim) {
 	//BUG AJAX manipulation is breaking tooltips... 
 	$.ajax({
             url: 'https://esi.tech.ccp.is/latest/characters/' + id + '/?datasource=tranquility',
@@ -97,17 +107,17 @@ function parseCharacter(systemID, id, victim) {
             },
             success: function(data){
 				if (victim) {
-					var name = $("[data-systemid=" + systemID + "]")[0].children[4].innerHTML.replace(id, data.name);
-					$("[data-systemid=" + systemID + "]")[0].children[4].innerHTML = name;
+					var e = $("#" + killID + "vcorp")[0].parentElement.parentElement;
+					e.innerHTML = e.innerHTML.replace(" " + id, " " + data.name);
 				} else {
-					var name = $("[data-systemid=" + systemID + "]")[0].children[5].innerHTML.replace(id, data.name);
-					$("[data-systemid=" + systemID + "]")[0].children[5].innerHTML = name;
+					var e = $("#" + killID + "acorp")[0].parentElement.parentElement;
+					e.innerHTML = e.innerHTML.replace(" " + id, " " + data.name);
 				}
 			}
 	});
 	return id;
 }
-function parseCorporation(systemID, id, victim) {
+function parseCorporation(killID, id, victim) {
 	//BUG AJAX manipulation is breaking tooltips...
 	$.ajax({
             url: 'https://esi.tech.ccp.is/latest/corporations/' + id + '/?datasource=tranquility',
@@ -121,11 +131,9 @@ function parseCorporation(systemID, id, victim) {
             },
             success: function(data){
 				if (victim) {
-					var name = $("[data-systemid=" + systemID + "]")[0].children[4].innerHTML.replace(id, data.name);
-					$("[data-systemid=" + systemID + "]")[0].children[4].innerHTML = name;
+					$("#" + killID + "vcorp")[0].title = data.name;
 				} else {
-					var name = $("[data-systemid=" + systemID + "]")[0].children[5].innerHTML.replace(id, data.name);
-					$("[data-systemid=" + systemID + "]")[0].children[5].innerHTML = name;
+					$("#" + killID + "acorp")[0].title = data.name;
 				}
 			}
 	});
@@ -181,10 +189,17 @@ setInterval(function(){
                                     <td>` + item.killmail.killmail_time.toString().substring(item.killmail.killmail_time.length - 9,item.killmail.killmail_time.length - 4) + `</td>
                                     <td><a target="_blank" href="https://zkillboard.com/kill/` + item.killID+ `/"><img id="` + item.killID + `ship" class="s16" src="https://imageserver.eveonline.com/Render/` + item.killmail.victim.ship_type_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+parseShipName(item.killmail.victim.ship_type_id)+`"></a></td>
                                     <td>` + parseSolarSystem(item.killmail.solar_system_id) + `</td>
-                                    <td><a target="_blank" href="https://zkillboard.com/corporation/` + item.killmail.victim.corporation_id + `/"><img id="` + item.killID + `vcorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + item.killmail.victim.corporation_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+parseCorporation(item.killmail.solar_system_id, item.killmail.victim.corporation_id, true)+`"></a>&nbsp; ` + parseCharacter(item.killmail.solar_system_id, item.killmail.victim.character_id, true) + `</td>
-                                    <td><a target="_blank" href="https://zkillboard.com/corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `/"><img id="` + item.killID + `acorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+getFinalBlowCorpName(item.killmail.solar_system_id, item.killmail.attackers)+`"></a>&nbsp;` + getFinalBlow(item.killmail.solar_system_id, item.killmail.attackers) + `&nbsp;(` +  item.killmail.attackers.length + `)</td>
+                                    <td><a target="_blank" href="https://zkillboard.com/corporation/` + item.killmail.victim.corporation_id + `/"><img id="` + item.killID + `vcorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + item.killmail.victim.corporation_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+item.killmail.victim.corporation_id+`"></a>&nbsp; ` + item.killmail.victim.character_id + `</td>
+                                    <td><a target="_blank" href="https://zkillboard.com/corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `/"><img id="` + item.killID + `acorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+getFinalBlowCorpID(item.killmail.attackers)+`"></a>&nbsp; ` + getFinalBlowID(item.killmail.attackers) + `&nbsp;(` +  item.killmail.attackers.length + `)</td>
                                 </tr>
                             `);
+							
+							parseCorporation(item.killID, item.killmail.victim.corporation_id, true); // Victim corp
+							parseCharacter(item.killID, item.killmail.victim.character_id, true); // Victim name
+							getFinalBlowCorpName(item.killID, item.killmail.attackers); // Killer corp
+							getFinalBlow(item.killID, item.killmail.attackers); // Killer name
+							
+							
                             $('#'+item.killID+'vcorp').tooltip();
                             $('#'+item.killID+'acorp').tooltip();
                             $('#'+item.killID+'ship').tooltip();
