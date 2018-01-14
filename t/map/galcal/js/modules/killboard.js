@@ -123,7 +123,6 @@ var getFinalBlowCorpName = function(killID, attackers) {
 };
 
 function parseCharacter(killID, id, victim) {
-	//BUG AJAX manipulation is breaking tooltips... 
 	$.ajax({
             url: 'https://esi.tech.ccp.is/latest/characters/' + id + '/?datasource=tranquility',
             type: 'GET',
@@ -147,7 +146,6 @@ function parseCharacter(killID, id, victim) {
 	return id;
 }
 function parseCorporation(killID, id, victim) {
-	//BUG AJAX manipulation is breaking tooltips...
 	$.ajax({
             url: 'https://esi.tech.ccp.is/latest/corporations/' + id + '/?datasource=tranquility',
             type: 'GET',
@@ -160,20 +158,40 @@ function parseCorporation(killID, id, victim) {
             },
             success: function(data){
 				if (victim) {
-					$("#" + killID + "vcorp")[0].title = data.name;
+					var e = $("#" + killID + "vcorp");
+					e[0].title = data.name;
+					e.tooltip();
 				} else {
-					$("#" + killID + "acorp")[0].title = data.name;
+					var e = $("#" + killID + "acorp");
+					e[0].title = data.name;
+					e.tooltip();
 				}
 			}
 	});
 	return id;
 }
 function parseAlliance(id) {
-	//TODO
+	//TODO Probably not needed
 	return id;
 }
-function parseShipName(id) {
-	//TODO
+function parseShipName(killID, id) {
+	//BUG AJAX manipulation is breaking tooltips...
+	$.ajax({
+            url: 'https://esi.tech.ccp.is/latest/universe/types/' + id + '/?datasource=tranquility',
+            type: 'GET',
+            crossDomain: true,
+			headers: {
+				'Accept':'application/json',
+			},
+            error: function(data){
+				console.log("Failed to fetch corporation info for: " + id);
+            },
+            success: function(data){
+				var e = $("#" + killID + "ship");
+				e[0].title = data.name;
+				e.tooltip();
+			}
+	});
 	return id;
 }
 function parseSolarSystem(id) {
@@ -216,22 +234,20 @@ setInterval(function(){
                                 <tr `+ isFW(item.killmail) +` data-systemid="` + item.killmail.solar_system_id + `">
                                     <td>` + moneyFormat(item.zkb.totalValue) + `</td>
                                     <td>` + item.killmail.killmail_time.toString().substring(item.killmail.killmail_time.length - 9,item.killmail.killmail_time.length - 4) + `</td>
-                                    <td><a target="_blank" href="https://zkillboard.com/kill/` + item.killID+ `/"><img id="` + item.killID + `ship" class="s16" src="https://imageserver.eveonline.com/Render/` + item.killmail.victim.ship_type_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+parseShipName(item.killmail.victim.ship_type_id)+`"></a></td>
+                                    <td><a target="_blank" href="https://zkillboard.com/kill/` + item.killID+ `/"><img id="` + item.killID + `ship" class="s16" src="https://imageserver.eveonline.com/Render/` + item.killmail.victim.ship_type_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+item.killmail.victim.ship_type_id+`"></a></td>
                                     <td>` + parseSolarSystem(item.killmail.solar_system_id) + `</td>
                                     <td><a target="_blank" href="https://zkillboard.com/corporation/` + item.killmail.victim.corporation_id + `/"><img id="` + item.killID + `vcorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + item.killmail.victim.corporation_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+item.killmail.victim.corporation_id+`"></a>&nbsp; ` + item.killmail.victim.character_id + `</td>
                                     <td><a target="_blank" href="https://zkillboard.com/corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `/"><img id="` + item.killID + `acorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+getFinalBlowCorpID(item.killmail.attackers)+`"></a>&nbsp; ` + getFinalBlowID(item.killmail.attackers) + `&nbsp;(` +  item.killmail.attackers.length + `)</td>
                                 </tr>
                             `);
 							
+							parseShipName(item.killID, item.killmail.victim.ship_type_id); // Ship type
 							parseCorporation(item.killID, item.killmail.victim.corporation_id, true); // Victim corp
 							parseCharacter(item.killID, item.killmail.victim.character_id, true); // Victim name
 							getFinalBlowCorpName(item.killID, item.killmail.attackers); // Killer corp
 							getFinalBlow(item.killID, item.killmail.attackers); // Killer name
 							
-							
-                            $('#'+item.killID+'vcorp').tooltip();
-                            $('#'+item.killID+'acorp').tooltip();
-                            $('#'+item.killID+'ship').tooltip();
+                            //$('#'+item.killID+'ship').tooltip();
                         }  
                     }
                 });
