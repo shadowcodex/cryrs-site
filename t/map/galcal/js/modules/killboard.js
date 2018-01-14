@@ -5,8 +5,8 @@
 /*
 Required states:
 	- Pirates only (White)
-	- Pirate kills CalMil (Grey)
-	- Pirate kills GalMil (Red)
+	- Pirate kills CalMil (Muted)
+	- Pirate kills GalMil (Grey)
 	- CalMil kills GalMil (Blue)
 	- CalMil kills Pirate (Lblue)
 	- Galmil kills CalMil (Green)
