@@ -188,7 +188,6 @@ setInterval(function(){
                             $('#'+item.killID+'vcorp').tooltip();
                             $('#'+item.killID+'acorp').tooltip();
                             $('#'+item.killID+'ship').tooltip();
-							console.log($('#killboard tr[data-systemid]'));
                         }  
                     }
                 });
