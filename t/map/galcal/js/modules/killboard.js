@@ -35,21 +35,18 @@ var isFW = function(killmail){
 	switch(killer) {
 		case "PIRATE":
 			if (victim == "PIRATE") return killColor.WHITE;
-			if (victim == "CALMIL") return killColor.MUTED;
+			if (victim == "CALMIL") return killColor.LGREY;
 			if (victim == "GALMIL") return killColor.GREY;
-			goto default;
 			
 		case "CALMIL":
 			if (victim == "PIRATE") return killColor.LBLUE;
 			if (victim == "CALMIL") return killColor.RED;
 			if (victim == "GALMIL") return killColor.BLUE;
-			goto default;
 			
 		case "GALMIL":
-			if (victim == "PIRATE") return killColor.YELLOW;
+			if (victim == "PIRATE") return killColor.LGREEN;
 			if (victim == "CALMIL") return killColor.GREEN;
 			if (victim == "GALMIL") return killColor.RED;
-			goto default;
 		
 		default:
 			return killColor.WHITE;
@@ -120,7 +117,9 @@ var getFinalBlowCorpID = function(attackers) {
 
 // ESI call to get char information from char_id.
 function parseCharacter(killID, charID, corpID, victim) {
-	$.ajax({
+	// If charID is not a number (NPC) this isn't needed, because it's already set as 'NPC'. Skip to corp stuff.			
+	if (isNaN(charID)) parseCorporation(killID, corpID, victim);
+	else $.ajax({
             url: 'https://esi.tech.ccp.is/latest/characters/' + charID + '/?datasource=tranquility',
             type: 'GET',
             crossDomain: true,
@@ -136,13 +135,10 @@ function parseCharacter(killID, charID, corpID, victim) {
 					var e = $("#" + killID + "vcorp")[0].parentElement.parentElement;
 					e.innerHTML = e.innerHTML.replace(" " + charID, " " + data.name);
 				}
-				// If not victim, and charID is a number, replace it. Otherwise it's not needed, because it's already set as 'NPC'.
-				else if (!isNaN(charID)) {
+				else{
 					var e = $("#" + killID + "acorp")[0].parentElement.parentElement;
 					e.innerHTML = e.innerHTML.replace(" " + charID, " " + data.name);
 				}
-				
-				parseCorporation(killID, corpID, victim);
 			}
 	});
 	return charID;

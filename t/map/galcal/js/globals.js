@@ -34,14 +34,14 @@
 	*/
 	var killColor = Object.freeze(
 	{
-		RED: 'class="text-danger"',
-		GREEN: 'class="text-success"',
-		YELLOW: 'class="text-warning"',
-		BLUE: 'class="text-primary"',
-		LBLUE: 'class="text-info"',
-		GREY: 'class="text-secondary"',
-		MUTED: 'class="text-muted"',
-		WHITE: 'class="text-white"',
+		RED: 'class="kill-red"',
+		GREEN: 'class="kill-green"',
+		LGREEN: 'class="kill-light-green"',
+		BLUE: 'class="kill-blue"',
+		LBLUE: 'class="kill-light-blue"',
+		GREY: 'class="kill-grey"',
+		LGREY: 'class="kill-light-grey"',
+		WHITE: 'class="kill-white"',
 		
 	});
 	
