@@ -139,6 +139,7 @@ function parseCharacter(killID, charID, corpID, victim) {
 					var e = $("#" + killID + "acorp")[0].parentElement.parentElement;
 					e.innerHTML = e.innerHTML.replace(" " + charID, " " + data.name);
 				}
+				parseCorporation(killID, corpID, victim);
 			}
 	});
 	return charID;
