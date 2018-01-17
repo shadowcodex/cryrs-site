@@ -55,6 +55,20 @@ var isFW = function(killmail){
     return '';
 }
 
+var charColor = function(killmail, victim) {
+	var attacker;
+	for(var i in killmail.attackers){
+        if(killmail.attackers[i].final_blow == true) attacker = killmail.attackers[i];
+    }
+	
+	var character = (victim ? killmail.victim : attacker);
+	
+	if (character.faction_id != null) { // If the victim is in the militia
+        if(character.faction_id == idEnum.GalMil) return killColor.GREEN;
+        if(character.faction_id == idEnum.CalMil) return killColor.BLUE;
+    } else return killColor.WHITE;
+}
+
 var killStat = function(item){
     /* global killStats */
 	var killmail = item.killmail;
@@ -232,13 +246,13 @@ setInterval(function(){
 							
 							// Add to killboard
                             $('#kills tbody').prepend(`
-                                <tr `+ isFW(item.killmail) +` data-systemid="` + item.killmail.solar_system_id + `">
+                                <tr `+ /*isFW(item.killmail) +*/` data-systemid="` + item.killmail.solar_system_id + `">
                                     <td>` + moneyFormat(item.zkb.totalValue) + `</td>
                                     <td>` + item.killmail.killmail_time.toString().substring(item.killmail.killmail_time.length - 9,item.killmail.killmail_time.length - 4) + `</td>
                                     <td><a target="_blank" href="https://zkillboard.com/kill/` + item.killID+ `/"><img id="` + item.killID + `ship" class="s16" src="https://imageserver.eveonline.com/Render/` + item.killmail.victim.ship_type_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+item.killmail.victim.ship_type_id+`"></a></td>
                                     <td>` + parseSolarSystem(item.killmail.solar_system_id) + `</td>
-                                    <td><a target="_blank" href="https://zkillboard.com/corporation/` + item.killmail.victim.corporation_id + `/"><img id="` + item.killID + `vcorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + item.killmail.victim.corporation_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+item.killmail.victim.corporation_id+`"></a>&nbsp; ` + item.killmail.victim.character_id + `</td>
-                                    <td><a target="_blank" href="https://zkillboard.com/corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `/"><img id="` + item.killID + `acorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+getFinalBlowCorpID(item.killmail.attackers)+`"></a>&nbsp; ` + getFinalBlowID(item.killmail.attackers) + `&nbsp;(` +  (item.killmail.attackers.length == 1 ? "Solo" : item.killmail.attackers.length) + `)</td>
+                                    <td ` + charColor(item.killmail, true) + `><a target="_blank" href="https://zkillboard.com/corporation/` + item.killmail.victim.corporation_id + `/"><img id="` + item.killID + `vcorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + item.killmail.victim.corporation_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+item.killmail.victim.corporation_id+`"></a>&nbsp; ` + item.killmail.victim.character_id + `</td>
+                                    <td ` + charColor(item.killmail, false) + `><a target="_blank" href="https://zkillboard.com/corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `/"><img id="` + item.killID + `acorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+getFinalBlowCorpID(item.killmail.attackers)+`"></a>&nbsp; ` + getFinalBlowID(item.killmail.attackers) + `&nbsp;(` +  (item.killmail.attackers.length == 1 ? "Solo" : item.killmail.attackers.length) + `)</td>
                                 </tr>
                             `);
 							
