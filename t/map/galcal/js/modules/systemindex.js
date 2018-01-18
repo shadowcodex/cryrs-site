@@ -1,6 +1,8 @@
 /* globals colorEnemy, colorFriendly, updateNode, lockUpdateBaseColor, lockHighlight, lockEndHighlight, $ */
 // Start getting data for FW
 var updateNodes = function(){
+	var now = new Date().getTime();
+	nextUpdate = now + 900000;
     //console.log(nodes.get({}), 'hey');
     $.ajax({
         url: 'http://services.jerkasauruswrecks.com:3000/fw/report',
