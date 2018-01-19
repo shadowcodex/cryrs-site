@@ -22,6 +22,29 @@
 		
 	});
 	
+	/*
+	Required states:
+		- Pirates only (White)
+		- Galmil kills CalMil (Green)
+		- CalMil kills GalMil (Blue)
+		- Pirate kills CalMil (Grey)
+		- Pirate kills GalMil (Red)
+		- CalMil kills Pirate (Lblue)
+		- GalMil kills Pirate (Yellow)
+	*/
+	var killColor = Object.freeze(
+	{
+		RED: 'class="kill-red"',
+		GREEN: 'class="kill-green"',
+		LGREEN: 'class="kill-light-green"',
+		BLUE: 'class="kill-blue"',
+		LBLUE: 'class="kill-light-blue"',
+		GREY: 'class="kill-grey"',
+		LGREY: 'class="kill-light-grey"',
+		WHITE: 'class="kill-white"',
+		
+	});
+	
     // Hash Map for Colors
     var colors = {};
     
