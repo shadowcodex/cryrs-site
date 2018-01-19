@@ -1,6 +1,8 @@
 /* globals colorEnemy, colorFriendly, updateNode, lockUpdateBaseColor, lockHighlight, lockEndHighlight, $ */
 // Start getting data for FW
 var updateNodes = function(){
+	var now = new Date().getTime();
+	nextUpdate = now + 900000;
     //console.log(nodes.get({}), 'hey');
     $.ajax({
         url: 'http://services.jerkasauruswrecks.com:3000/fw/report',
@@ -14,7 +16,7 @@ var updateNodes = function(){
 			
 			//BUG Tbody not being emptied properly. Stacking this table with a bunch of duplicates
             $('#systems tbody').empty();
-            $('#systems').append('<tbody></tbody>');
+            //$('#systems').append('<tbody></tbody>');
             $.each(data.data, function(i, item){
                 //console.log(i, item);
                 var rowcolor = "";

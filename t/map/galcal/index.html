@@ -9,13 +9,45 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="../css/boot.css">
     <link rel="stylesheet" href="../css/custom.css">
-    
+    <style>
+	.kill-white {
+		color: white;
+	}
+	
+	.kill-light-grey {
+		color: silver;
+	}
+	
+	.kill-grey {
+		color: grey;
+	}
+	
+	.kill-light-blue {
+		color: skyblue;
+	}
+	
+	.kill-blue {
+		color: slateblue;
+	}
+	
+	.kill-light-green {
+		color: lightgreen;
+	}
+	
+	.kill-green {
+		color: lawngreen;
+	}
+
+	.kill-red {
+		color: red;
+	}
+	</style>
     
 </head>
 <body>
+{% include header2.html %}
 <div id="mynetwork"></div>
 <div id="data">
-    {% include header2.html %} 
     <div class="row">
         <div class="col-md-12">
             <div id="killboard">
@@ -29,7 +61,7 @@
                                         <th>Cost</th>
                                         <th>Time</th>
                                         <th>Ship</th>
-                                        <th>location</th>
+                                        <th>Location</th>
                                         <th>Pilot</th>
                                         <th>Final Blow</th> 
                                     </tr>
@@ -198,10 +230,14 @@
             <li>Number shown in the parenthesis is the number of attackers.</li>
             <li><strong>Kill Colors:</strong>
                 <ul>
-                    <li><span class="text-danger">RED: </span> means that a galmil pilot was killed.</li>
-                    <li><span class="text-success">GREEN: </span> means that a galmil pilot killed someone.</li>
-                    <li><span class="text-warning">YELLOW: </span> means that a calmil pilot killed someone that wasn't galmil.</li>
-                    <li><span class="text-info">BLUE: </span> means that a calmil pilot was killed by someone that wasn't galmil.</li>
+					<li><span class="kill-white">WHITE:</span> A <span class="kill-white">Pirate</span> killed a <span class="kill-white">Pirate</span>.</li>
+					<li><span class="kill-light-grey">LIGHT GREY:</span> A <span class="kill-white">Pirate</span> killed someone in <span class="kill-blue">CalMil</span>.</li>
+					<li><span class="kill-grey">GREY:</span> A <span class="kill-white">Pirate</span> killed someone in <span class="kill-green">GalMil</span>.</li>
+					<li><span class="kill-light-blue">LIGHT BLUE:</span> <span class="kill-blue">CalMil</span> killed a <span class="kill-white">Pirate</span>.</li>
+					<li><span class="kill-blue">BLUE:</span> <span class="kill-blue">CalMil</span> killed someone in <span class="kill-green">GalMil</span>.</li>
+					<li><span class="kill-light-green">LIGHT GREEN:</span> <span class="kill-green">GalMil</span> killed a <span class="kill-white">Pirate</span>.</li>
+					<li><span class="kill-green">GREEN:</span> <span class="kill-green">GalMil</span> killed someone in <span class="kill-blue">CalMil</span>.</li>
+                    <li><span class="kill-red">RED:</span> means someone killed their own militia.</li>
                 </ul>
             </li>
         </ul>
