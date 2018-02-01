@@ -63,6 +63,9 @@ var updateNodes = function(){
 };
 setTimeout(function() {
 	updateNodes();
+	var d = new Date();
+	var e = $('#kill-stats')[0];
+	e.innerHTML = e.innerHTML.substring(0, e.innerHTML.indexOf("Since ") + 5) + " " + (d.getUTCHours() < 10 ? "0" : "") + d.getUTCHours() + ":" + (d.getUTCMinutes() < 10 ? "0" : "") + d.getUTCMinutes() + " EVE time";
 }, 1000);
 
 var nextUpdate = 0;
