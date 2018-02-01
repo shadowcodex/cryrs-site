@@ -3,7 +3,6 @@
 var updateNodes = function(){
 	var now = new Date().getTime();
 	nextUpdate = now + 900000;
-    //console.log(nodes.get({}), 'hey');
     $.ajax({
         url: 'http://services.jerkasauruswrecks.com:3000/fw/report',
 		error: function() {
@@ -16,6 +15,7 @@ var updateNodes = function(){
 			
 			//BUG Tbody not being emptied properly. Stacking this table with a bunch of duplicates
             $('#systems tbody').empty();
+			//$('#systems tbody').remove();
             //$('#systems').append('<tbody></tbody>');
             $.each(data.data, function(i, item){
                 //console.log(i, item);
@@ -61,11 +61,12 @@ var updateNodes = function(){
         }
     });  
 };
-updateNodes();
+setTimeout(function() {
+	updateNodes();
+}, 1000);
+
 var nextUpdate = 0;
 setInterval(function(){
-	var now = new Date().getTime();
-	nextUpdate = now + 900000;
     updateNodes();
 },900000);
 setInterval(function() {
