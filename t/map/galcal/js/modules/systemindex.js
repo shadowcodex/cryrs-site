@@ -1,12 +1,26 @@
 /* globals colorEnemy, colorFriendly, updateNode, lockUpdateBaseColor, lockHighlight, lockEndHighlight, $ */
 // Start getting data for FW
+var nextUpdate = 0;
+var sorting = [[2,1]];
+
 var updateNodes = function(){
 	var now = new Date().getTime();
 	nextUpdate = now + 900000;
+	
+	$('#systems tbody').empty();
+	$('#systems').trigger("update");
+	
     $.ajax({
         url: 'http://services.jerkasauruswrecks.com:3000/fw/report',
 		error: function() {
 			console.log("Failed to fetch warzone data");
+			
+			$('#systems tbody').append(`<tr><td>Error</td><td>updating</td><td>system</td><td>data!</td><tr>`);
+	
+			$('#systems').trigger("update");
+			setTimeout(function() {
+				$('#systems').trigger("sorton", [sorting]);
+			}, 100);
 		},
         success: function(data){
             // Ping Google
@@ -14,10 +28,9 @@ var updateNodes = function(){
             // do something with data
 			
 			//BUG Tbody not being emptied properly. Stacking this table with a bunch of duplicates
-            $('#systems tbody').empty();
-			//$('#systems tbody').remove();
-            //$('#systems').append('<tbody></tbody>');
-            $.each(data.data, function(i, item){
+			$('#systems tbody').empty();
+			$('#systems').trigger("update");
+			$.each(data.data, function(i, item){
                 //console.log(i, item);
                 var rowcolor = "";
                 if(item.owner == "Gallente Federation"){
@@ -42,7 +55,10 @@ var updateNodes = function(){
                     `);
                 }
             });
-            $('#systems').tablesorter({sortList: [[2,1]]});
+			$('#systems').trigger("update");
+			setTimeout(function() {
+				$('#systems').trigger("sorton", [sorting]);
+			}, 100);
             //setup table rows to be clickable
             $('#killboard tr[data-systemid]').unbind('mouseenter mouseleave dblclick');
             $('#system tr[data-systemid]').hover(function(){
@@ -59,19 +75,21 @@ var updateNodes = function(){
             });
             //$('#systems').trigger("sorton", [[0,0]]);
         }
-    });  
+    });
 };
+
 setTimeout(function() {
+	$('#systems').tablesorter();
 	updateNodes();
 	var d = new Date();
 	var e = $('#kill-stats')[0];
 	e.innerHTML = e.innerHTML.substring(0, e.innerHTML.indexOf("Since ") + 5) + " " + (d.getUTCHours() < 10 ? "0" : "") + d.getUTCHours() + ":" + (d.getUTCMinutes() < 10 ? "0" : "") + d.getUTCMinutes() + " EVE time";
 }, 1000);
 
-var nextUpdate = 0;
 setInterval(function(){
     updateNodes();
 },900000);
+
 setInterval(function() {
 	var now = new Date().getTime();
 	var distance = Math.abs(nextUpdate - now);
