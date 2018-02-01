@@ -17,21 +17,13 @@
 	var idEnum = Object.freeze(
 	{
 		CalMil: 500001,
+		MinMil: 500002,
+		MarMil: 500003,
 		GalMil: 500004,
 		FEDUP: 99007289,
 		
 	});
 	
-	/*
-	Required states:
-		- Pirates only (White)
-		- Galmil kills CalMil (Green)
-		- CalMil kills GalMil (Blue)
-		- Pirate kills CalMil (Grey)
-		- Pirate kills GalMil (Red)
-		- CalMil kills Pirate (Lblue)
-		- GalMil kills Pirate (Yellow)
-	*/
 	var killColor = Object.freeze(
 	{
 		RED: 'class="kill-red"',
@@ -42,7 +34,10 @@
 		GREY: 'class="kill-grey"',
 		LGREY: 'class="kill-light-grey"',
 		WHITE: 'class="kill-white"',
-		
+		GALMIL: 'class="kill-green"',
+		CALMIL: 'class="kill-blue"',
+		MINMIL: 'class="kill-red"',
+		MARMIL: 'class="kill-gold"',
 	});
 	
     // Hash Map for Colors
