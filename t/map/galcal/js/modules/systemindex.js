@@ -14,7 +14,6 @@ var updateNodes = function(){
         url: 'http://services.jerkasauruswrecks.com:3000/fw/report',
 		error: function() {
 			console.log("Failed to fetch warzone data");
-			
 			$('#systems tbody').append(`<tr><td>Error</td><td>updating</td><td>system</td><td>data!</td><tr>`);
 	
 			$('#systems').trigger("update");
@@ -26,12 +25,7 @@ var updateNodes = function(){
             // Ping Google
             ga('send', 'event','Systems', 'Gal Systems Updated', performance.now().toString() , '0');
             // do something with data
-			
-			//BUG Tbody not being emptied properly. Stacking this table with a bunch of duplicates
-			$('#systems tbody').empty();
-			$('#systems').trigger("update");
 			$.each(data.data, function(i, item){
-                //console.log(i, item);
                 var rowcolor = "";
                 if(item.owner == "Gallente Federation"){
                     updateNode(item);
@@ -44,7 +38,6 @@ var updateNodes = function(){
                 }
                 
                 if(item.owner == "Gallente Federation" || item.owner == "Caldari State"){
-                    //console.log(item);
                     $('#systems tbody').append(`
                         <tr class="` + rowcolor + `" data-systemid="` + item.id + `" data-systemname="` + item.name + `">
                             <td>` + item.name + `</td>
@@ -55,6 +48,7 @@ var updateNodes = function(){
                     `);
                 }
             });
+			//Tell the table sorter we've made changes and apply the sorting.
 			$('#systems').trigger("update");
 			setTimeout(function() {
 				$('#systems').trigger("sorton", [sorting]);
@@ -73,7 +67,6 @@ var updateNodes = function(){
             $('#system tr[data-systemname]').on('dblclick', function(){
                 window.open("http://evemaps.dotlan.net/system/" + $(this).data("systemname") + "/stats", '_blank');
             });
-            //$('#systems').trigger("sorton", [[0,0]]);
         }
     });
 };
