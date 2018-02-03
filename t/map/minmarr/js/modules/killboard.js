@@ -64,8 +64,8 @@ var charColor = function(killmail, victim) {
 	var character = (victim ? killmail.victim : attacker);
 	
 	if (character.faction_id != null) { // If the victim is in the militia
-        if(character.faction_id == idEnum.MinMil) return killColor.MINMIL;
-        else if(character.faction_id == idEnum.MarMil) return killColor.MARMIL;
+        if(character.faction_id == idEnum.GalMil) return killColor.GALMIL;
+        else if(character.faction_id == idEnum.CalMil) return killColor.CALMIL;
         else if(character.faction_id == idEnum.MarMil) return killColor.MARMIL;
         else if(character.faction_id == idEnum.MinMil) return killColor.MINMIL;
     } else return killColor.WHITE;
