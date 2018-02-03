@@ -1,43 +1,84 @@
 /*global $, kills, systems, flashNodeColor, moneyFormat, lockHighlight, lockEndHighlight, performance */
-var ifFEDUP = function(killmail){
-    if(killmail.victim.alliance != null){
-        if(killmail.victim.alliance.name == "Federation Uprising") {
-            return 'class="text-danger"';
-        } 
-    } else if (killmail.victim.faction != null) {
-        if(killmail.victim.faction.name == "Minmatar Republic"){
-            return 'class="text-danger"';
-        }
-    }
-    
+
+//TODO This needs to be rewritten. None of these checks actually mean anything. They aren't returning the cases that are described in the help menu at all.
+
+/*
+Required states:
+	- Pirates only (White)
+	- Pirate kills MarMil (Muted)
+	- Pirate kills MinMil (Grey)
+	- MarMil kills MinMil (Blue)
+	- MarMil kills Pirate (Lblue)
+	- Galmil kills MarMil (Green)
+	- MinMil kills Pirate (Yellow)
+*/
+var isFW = function(killmail){
+    var killer = "";
+	var victim = "";
+	// Loop to find the killer, store who done it.
     for(var i in killmail.attackers){
-        if(killmail.attackers[i].finalBlow == true) {
-            if(killmail.attackers[i].alliance != null){
-                if(killmail.attackers[i].alliance.name == "Federation Uprising") return 'class="text-success"';
-            } else if (killmail.attackers[i].faction != null){
-                if(killmail.attackers[i].faction.name == "Minmatar Republic") return 'class="text-success"';
-                if(killmail.attackers[i].faction.name == "Amarr Empire") return 'class="text-warning"';
-            }
+        if(killmail.attackers[i].final_blow == true) {
+            if (killmail.attackers[i].faction_id != null){
+                if(killmail.attackers[i].faction_id == idEnum.MinMil) killer = "MINMIL";
+                if(killmail.attackers[i].faction_id == idEnum.MarMil) killer = "MARMIL";
+            } else killer = "PIRATE";
         }
     }
-    
-    if(killmail.victim.faction != null){
-        if(killmail.victim.faction.name == "Amarr Empire") return 'class="text-info"';
-    }
-    
-    
+	
+	// Store who the victim is
+	if (killmail.victim.faction_id != null) { // If the victim is in the militia
+        if(killmail.victim.faction_id == idEnum.MinMil) killer = "MINMIL";
+        if(killmail.victim.faction_id == idEnum.MarMil) killer = "MARMIL";
+    } else victim = "PIRATE";
+	
+	// I hate trying to keep track of states like this in ^^^^ that kind of code so.... splitting it off
+	switch(killer) {
+		case "PIRATE":
+			if (victim == "PIRATE") return killColor.WHITE;
+			if (victim == "MARMIL") return killColor.LGREY;
+			if (victim == "MINMIL") return killColor.GREY;
+			
+		case "MARMIL":
+			if (victim == "PIRATE") return killColor.LBLUE;
+			if (victim == "MARMIL") return killColor.RED;
+			if (victim == "MINMIL") return killColor.BLUE;
+			
+		case "MINMIL":
+			if (victim == "PIRATE") return killColor.LGREEN;
+			if (victim == "MARMIL") return killColor.GREEN;
+			if (victim == "MINMIL") return killColor.RED;
+		
+		default:
+			return killColor.WHITE;
+	}
     
     return '';
 }
 
+var charColor = function(killmail, victim) {
+	var attacker;
+	for(var i in killmail.attackers){
+        if(killmail.attackers[i].final_blow == true) attacker = killmail.attackers[i];
+    }
+	
+	var character = (victim ? killmail.victim : attacker);
+	
+	if (character.faction_id != null) { // If the victim is in the militia
+        if(character.faction_id == idEnum.MinMil) return killColor.MINMIL;
+        else if(character.faction_id == idEnum.MarMil) return killColor.MARMIL;
+        else if(character.faction_id == idEnum.MarMil) return killColor.MARMIL;
+        else if(character.faction_id == idEnum.MinMil) return killColor.MINMIL;
+    } else return killColor.WHITE;
+}
+
 var killStat = function(item){
     /* global killStats */
-    var killmail = item.killmail;
+	var killmail = item.killmail;
     for(var i in killmail.attackers){
-        if(killmail.attackers[i].finalBlow == true) {
-            if(killmail.attackers[i].faction != null){
-                if(killmail.attackers[i].faction.name == "Minmatar Republic"){killStats.gal++; $('#galkills').text(killStats.gal); return 0;}
-                if(killmail.attackers[i].faction.name == "Amarr Empire"){killStats.cal++; $('#calkills').text(killStats.cal); return 0;} 
+        if(killmail.attackers[i].final_blow == true) {
+            if(killmail.attackers[i].faction_id != null){
+                if(killmail.attackers[i].faction_id == idEnum.MinMil){killStats.min++; $('#minkills').text(killStats.min); return 0;}
+                if(killmail.attackers[i].faction_id == idEnum.MarMil){killStats.mar++; $('#markills').text(killStats.mar); return 0;} 
                 else {killStats.pir++; $('#pirkills').text(killStats.pir); return 0;}
             } else {
                 if(item.zkb.npc){killStats.npc++; $('#npckills').text(killStats.npc); return 0;}
@@ -49,49 +90,138 @@ var killStat = function(item){
 
 var deathStat = function(killmail){
     /* global deathStats */
-    if(killmail.victim.faction != null){
-        if(killmail.victim.faction.name == "Minmatar Republic"){deathStats.gal++; $('#galDeaths').text(deathStats.gal); return 0;}
-        if(killmail.victim.faction.name == "Amarr Empire"){deathStats.cal++; $('#calDeaths').text(deathStats.cal); return 0;}
+    if(killmail.victim.faction_id != null){
+        if(killmail.victim.faction_id == idEnum.MinMil){deathStats.min++; $('#minDeaths').text(deathStats.min); return 0;}
+        if(killmail.victim.faction_id == idEnum.MarMil){deathStats.mar++; $('#marDeaths').text(deathStats.mar); return 0;}
         else {deathStats.pir++; $('#pirDeaths').text(deathStats.pir); return 0;}
     } else {
         deathStats.pir++; $('#pirDeaths').text(deathStats.pir); return 0;
     }
 }
 
-var getFinalBlow = function(attackers) {
-    for( var i in attackers) {
-        if(attackers[i].finalBlow == true) {
-            if(attackers[i].character != null) return attackers[i].character.name;
-            if(attackers[i].corporation != null) return attackers[i].corporation.name;
+// Find who had the final blow, and start the lookup to replace the id with a name.
+var getFinalBlow = function(killID, attackers) {
+    for(var i in attackers) {
+        if(attackers[i].final_blow == true) {
+            if(attackers[i].character_id != null) return parseCharacter(killID, attackers[i].character_id, attackers[i].corporation_id, false);
+			// Use an additional call if character_id is null, since new NPC are actually killing quite a few people and show up fairly often.
+			else if (attackers[i].corporation_id != null) parseCharacter(killID, "NPC", attackers[i].corporation_id, false);
         }
     }
     return 'unknown';
 };
 
-var getFinalBlowCorp = function(attackers) {
+// Get the ID of the character that had the final blow.
+var getFinalBlowID = function(attackers) {
+	for(var i in attackers) {
+		if (attackers[i].final_blow == true) {
+			if(attackers[i].character_id != null) return attackers[i].character_id;
+			else if (attackers[i].corporation_id != null) return "NPC";
+		}
+	}
+}
+
+// Get the ID of the corp of the character that had the final blow.
+var getFinalBlowCorpID = function(attackers) {
     for( var i in attackers) {
-        if(attackers[i].finalBlow == true){
-            if(attackers[i].corporation != null) return attackers[i].corporation.id;
+        if(attackers[i].final_blow == true){
+            if(attackers[i].corporation_id != null) return attackers[i].corporation_id;
         } 
     }
     return 98505199;
 };
 
-var getFinalBlowCorpName = function(attackers) {
-    for( var i in attackers) {
-        if(attackers[i].finalBlow == true){
-            if(attackers[i].corporation != null) return attackers[i].corporation.name;
-        } 
-    }
-    return 'CRYRS - Unknown';
-};
+// ESI call to get char information from char_id.
+function parseCharacter(killID, charID, corpID, victim) {
+	// If charID is not a number (NPC) this isn't needed, because it's already set as 'NPC'. Skip to corp stuff.			
+	if (isNaN(charID)) parseCorporation(killID, corpID, victim);
+	else $.ajax({
+            url: 'https://esi.tech.ccp.is/latest/characters/' + charID + '/?datasource=tranquility',
+            type: 'GET',
+            crossDomain: true,
+			headers: {
+				'Accept':'application/json',
+			},
+            error: function(data){
+				console.log("Failed to fetch character info for: " + charID);
+            },
+            success: function(data){
+				// 'victim' is used to select the proper cell to edit.
+				if (victim) {
+					var e = $("#" + killID + "vcorp")[0].parentElement.parentElement;
+					e.innerHTML = e.innerHTML.replace(" " + charID, " " + data.name);
+				}
+				else{
+					var e = $("#" + killID + "acorp")[0].parentElement.parentElement;
+					e.innerHTML = e.innerHTML.replace(" " + charID, " " + data.name);
+				}
+				parseCorporation(killID, corpID, victim);
+			}
+	});
+	return charID;
+}
+
+// ESI call to get corp information from corp_id.
+function parseCorporation(killID, corpID, victim) {
+	$.ajax({
+            url: 'https://esi.tech.ccp.is/latest/corporations/' + corpID + '/?datasource=tranquility',
+            type: 'GET',
+            crossDomain: true,
+			headers: {
+				'Accept':'application/json',
+			},
+            error: function(data){
+				console.log("Failed to fetch corporation info for: " + corpID);
+            },
+            success: function(data){
+				// 'victim' is used to select the proper cell to edit
+				if (victim) {
+					var e = $("#" + killID + "vcorp");
+					e.attr("title", data.name);
+					e.tooltip();
+				} else {
+					var e = $("#" + killID + "acorp");
+					e.attr("title", data.name);
+					e.tooltip();
+				}
+			}
+	});
+	return corpID;
+}
+
+// ESI call to get item information from ship_id.
+function parseShipName(killID, id) {
+	$.ajax({
+            url: 'https://esi.tech.ccp.is/latest/universe/types/' + id + '/?datasource=tranquility',
+            type: 'GET',
+            crossDomain: true,
+			headers: {
+				'Accept':'application/json',
+			},
+            error: function(data){
+				console.log("Failed to fetch corporation info for: " + id);
+            },
+            success: function(data){
+				var e = $("#" + killID + "ship");
+				e.attr("title", data.name);
+				e.tooltip();
+			}
+	});
+	return id;
+}
+
+// Use the pre-existing system data from our nodes to swap the system_id's with proper names. Added bonus of including % values in killboard.
+function parseSolarSystem(id) {
+	var i = nodes.get(id);
+	if (i) return i.label;
+	return id;
+}
 
 var waiting = 0;
 
 // Start getting data for killboard
 setInterval(function(){
     if(waiting <= 0){
-        // console.log('ping');
         waiting++;
         $.ajax({
             url: 'https://redisq.zkillboard.com/listen.php?queueID=' + queueID + '&ttw=1',
@@ -102,41 +232,47 @@ setInterval(function(){
             },
             success: function(data){
                 waiting--;
+
                 // do something with data
                 $.each(data, function(i, item){
                     if(item != null){
-                        if($.inArray(item.killmail.solarSystem.id, systems) > 0 && $.inArray(item.killID, kills) < 0){
-                            // console.log(item, performance.now(), $.inArray(item.killmail.solarSystem.id, systems));
-                            ga('send', 'event','kill', 'Minmar Map Kill', item.killID , '1');
+                        if($.inArray(item.killmail.solar_system_id, systems) > 0 && $.inArray(item.killID, kills) < 0){
+                            // Signal Google
+                            ga('send', 'event','kill', 'Galmil Map Kill', item.killID , '1');
+							// Update stats board
                             killStat(item);
                             deathStat(item.killmail);
                             kills.push(item.killID);
-                            // flash the map
-                            flashNodeColor(item.killmail.solarSystem.id, item.killmail.solarSystem.name, item.killID, '#ff4949');
-                            // add item to the list
+                            // Flash system node
+                            flashNodeColor(item.killmail.solar_system_id, parseSolarSystem(item.killmail.solar_system_id).split(" ")[0], item.killID, '#ff4949');
+							
+							// Add to killboard
                             $('#kills tbody').prepend(`
-                                <tr `+ ifFEDUP(item.killmail) +` data-systemid="` + item.killmail.solarSystem.id + `">
+                                <tr `+ /*isFW(item.killmail) +*/` data-systemid="` + item.killmail.solar_system_id + `">
                                     <td>` + moneyFormat(item.zkb.totalValue) + `</td>
-                                    <td>` + item.killmail.killTime.toString().substring(item.killmail.killTime.length - 8,item.killmail.killTime.length - 3) + `</td>
-                                    <td><a target="_blank" href="https://zkillboard.com/kill/` + item.killID+ `/"><img id="` + item.killID + `ship" class="s16" src="https://imageserver.eveonline.com/Render/` + item.killmail.victim.shipType.id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+item.killmail.victim.shipType.name+`"></a></td>
-                                    <td>` + item.killmail.solarSystem.name + `</td>
-                                    <td><a target="_blank" href="https://zkillboard.com/corporation/` + item.killmail.victim.corporation.id + `/"><img id="` + item.killID + `vcorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + item.killmail.victim.corporation.id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+item.killmail.victim.corporation.name+`"></a>&nbsp;` + item.killmail.victim.character.name + `</td>
-                                    <td><a target="_blank" href="https://zkillboard.com/corporation/` + getFinalBlowCorp(item.killmail.attackers) + `/"><img id="` + item.killID + `acorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + getFinalBlowCorp(item.killmail.attackers) + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+getFinalBlowCorpName(item.killmail.attackers)+`"></a>&nbsp;` + getFinalBlow(item.killmail.attackers) + `&nbsp;(` +  item.killmail.attackers.length + `)</td>
+                                    <td>` + item.killmail.killmail_time.toString().substring(item.killmail.killmail_time.length - 9,item.killmail.killmail_time.length - 4) + `</td>
+                                    <td><a target="_blank" href="https://zkillboard.com/kill/` + item.killID+ `/"><img id="` + item.killID + `ship" class="s16" src="https://imageserver.eveonline.com/Render/` + item.killmail.victim.ship_type_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+item.killmail.victim.ship_type_id+`"></a></td>
+                                    <td>` + parseSolarSystem(item.killmail.solar_system_id) + `</td>
+                                    <td ` + charColor(item.killmail, true) + `><a target="_blank" href="https://zkillboard.com/corporation/` + item.killmail.victim.corporation_id + `/"><img id="` + item.killID + `vcorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + item.killmail.victim.corporation_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+item.killmail.victim.corporation_id+`"></a>&nbsp; ` + item.killmail.victim.character_id + `</td>
+                                    <td ` + charColor(item.killmail, false) + `><a target="_blank" href="https://zkillboard.com/corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `/"><img id="` + item.killID + `acorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+getFinalBlowCorpID(item.killmail.attackers)+`"></a>&nbsp; ` + getFinalBlowID(item.killmail.attackers) + `&nbsp;` +  (item.killmail.attackers.length == 1 ? `<span style=\"color:yellow\"><strong>(Solo)</strong></span>` : `(`+item.killmail.attackers.length+`)`) + `</td>
                                 </tr>
                             `);
-                            $('#'+item.killID+'vcorp').tooltip();
-                            $('#'+item.killID+'acorp').tooltip();
-                            $('#'+item.killID+'ship').tooltip();
+							
+							// Replace all ID references with actual names.
+							parseShipName(item.killID, item.killmail.victim.ship_type_id); // Ship type
+							parseCharacter(item.killID, item.killmail.victim.character_id, item.killmail.victim.corporation_id, true); // Victim name
+							getFinalBlow(item.killID, item.killmail.attackers); // Killer name
                         }  
                     }
                 });
+				// Highlight system where a kill occured when hovering the item in the killboard
                 $('#killboard tr[data-systemid]').unbind('mouseenter mouseleave');
                 $('#killboard tr[data-systemid]').hover(function(){
-                    // enter
+                    // Enter
                     var id = $(this).data("systemid");
                     lockHighlight(id,id+'killhighlight','#ffa3ff');
                 },function(){
-                    // leave
+                    // Leave
                     var id = $(this).data("systemid");
                     lockEndHighlight(id,id+'killhighlight');
                 });

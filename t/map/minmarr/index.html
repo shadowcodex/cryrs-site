@@ -9,26 +9,58 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="../css/boot.css">
     <link rel="stylesheet" href="../css/custom.css">
+    <style>
+	.kill-white {
+		color: white;
+	}
+	
+	.kill-light-grey {
+		color: silver;
+	}
+	
+	.kill-grey {
+		color: grey;
+	}
+	
+	.kill-light-blue {
+		color: skyblue;
+	}
+	
+	.kill-blue {
+		color: slateblue;
+	}
+	
+	.kill-light-green {
+		color: lightgreen;
+	}
+	
+	.kill-green {
+		color: lawngreen;
+	}
+
+	.kill-red {
+		color: red;
+	}
+	
+	.kill-gold {
+		color: gold;
+	}
+	
+	.kill-orange {
+		color: orange;
+	}
+	</style>
     
-    <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        
-          ga('create', 'UA-96338983-1', 'auto');
-          ga('send', 'pageview');
-        </script>
 </head>
 <body>
+{% include header2.html %}
 <div id="mynetwork"></div>
 <div id="data">
-            {% include header2.html %}        
     <div class="row">
         <div class="col-md-12">
             <div id="killboard">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Killboard - Realtime Kills from Minmatar/Amarr FW area.</div>
+                    <div class="panel-heading">Killboard - Realtime Kills from the Minmatar/Amarr warzone.</div>
                     <div class="panel-body">
                         <div id="killboard-scroll">
                             <table id="kills" class="table table-striped table-bordered table-hover table-condensed">
@@ -37,7 +69,7 @@
                                         <th>Cost</th>
                                         <th>Time</th>
                                         <th>Ship</th>
-                                        <th>location</th>
+                                        <th>Location</th>
                                         <th>Pilot</th>
                                         <th>Final Blow</th> 
                                     </tr>
@@ -55,7 +87,7 @@
         <div class="col-md-6">
             <div id="system">
                 <div class="panel panel-default">
-                    <div class="panel-heading">System Indexes</div>
+                    <div class="panel-heading">System Indexes &nbsp; <span style="font-size:10px; color:#ff6666">Next update: </span></div>
                     <div class="panel-body">
                         <div id="system-scroll">
                             <table id="systems" class="table table-striped table-bordered table-hover table-condensed tablesorter">
@@ -64,7 +96,7 @@
                                         <th>System</th>
                                         <th>Occupier</th>
                                         <th>%</th>
-                                        <th>%Changed</th>
+                                        <th>% Changed</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -79,7 +111,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Kill Stats</div>
+                        <div id="kill-stats" class="panel-heading">Kill Stats &nbsp; <span style="font-size:10px;">Since </span></div>
                         <div class="panel-body">
                             <table class="table table-striped table-bordered table-hover table-condensed tablesorter">
                                 <thead>
@@ -91,17 +123,17 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td><span class="text-danger">Minmatar</span></td>
-                                        <td><span id="galkills">0</span></td>
-                                        <td><span id="galDeaths">0</span></td>
+                                        <td><span class="text-success">Minmatar</span></td>
+                                        <td><span id="minkills">0</span></td>
+                                        <td><span id="minDeaths">0</span></td>
                                     </tr>
                                     <tr>
-                                        <td><span class="text-warning">Amarr</span></td>
-                                        <td><span id="calkills">0</span></td>
-                                        <td><span id="calDeaths">0</span></td>
+                                        <td><span class="text-info">Amarr</span></td>
+                                        <td><span id="markills">0</span></td>
+                                        <td><span id="marDeaths">0</span></td>
                                     </tr>
                                     <tr>
-                                        <td><span class="text-info">Pirate</span></td>
+                                        <td><span class="text-warning">Pirate</span></td>
                                         <td><span id="pirkills">0</span></td>
                                         <td><span id="pirDeaths">0</span></td>
                                     </tr>
@@ -119,6 +151,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <span class="pull-right">
+                        <a target="_blank" class="btn btn-sm btn-primary" href="http://jerkasauruswrecks.com">Learn More About JREX</a> 
                         <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#donateModal">Donate</button> 
                         <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#helpModal">Help</button> 
                         <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#creditModal">Credit</button>
@@ -166,7 +199,8 @@
         <h4 class="modal-title" id="donateModalLabel">Donate</h4>
       </div>
       <div class="modal-body">
-        So you like the map, and want to help support it's development and updates? Send ISK ingame to <a href="https://gate.eveonline.com/profile/valindil89"><span class="text-warning"><strong>Valindil89</strong></span></a>.
+        So you like the map, and want to help support it's development and updates? Send ISK ingame to <a target="_blank" href="https://evewho.com/pilot/Pedro+Athonille"><span class="text-warning"><strong>Pedro Athonille</strong></span> or <a target="_blank" href="https://evewho.com/pilot/Sventhena+Kado"><span class="text-warning"><strong>Sventhena Kado</strong></span></a> and mark it "FW Map Donation". Your donations will encourage us to keep this tool updated and enjoyable to use.<br>
+        All credit goes to <a target="_blank" href="https://evewho.com/pilot/valindil89"><span class="text-warning">Valindil89</span></a> for originally creating this tool.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -184,7 +218,7 @@
         <h4 class="modal-title" id="helpModalLabel">Help / FAQ</h4>
       </div>
       <div class="modal-body">
-        If you need support, send an ingame mail to <a href="https://gate.eveonline.com/profile/valindil89"><span class="text-warning"><strong>Valindil89</strong></span></a>.
+        If you need support, send an ingame mail to <a target="_blank" href="https://evewho.com/pilot/Pedro+Athonille"><span class="text-warning"><strong>Pedro Athonille</strong></span> or <a target="_blank" href="https://evewho.com/pilot/Sventhena+Kado"><span class="text-warning"><strong>Sventhena Kado</strong></span></a>.<br>
         <br><br>
         Here are the instructions :)<br><br>
         <h3>Tables</h3>
@@ -203,12 +237,13 @@
             <li>All kills shown are only kills that happen within a system on the map.</li>
             <li>Hovering over a row will highlight the system on the map.</li>
             <li>Number shown in the parenthesis is the number of attackers.</li>
-            <li><strong>Kill Colors:</strong>
+            <li><strong>Name Colors:</strong>
                 <ul>
-                    <li><span class="text-danger">RED: </span> means that a Minmatar pilot was killed.</li>
-                    <li><span class="text-success">GREEN: </span> means that a Minmatar pilot killed someone.</li>
-                    <li><span class="text-warning">YELLOW: </span> means that a Amarr pilot killed someone that wasn't galmil.</li>
-                    <li><span class="text-info">BLUE: </span> means that a Amarr pilot was killed by someone that wasn't galmil.</li>
+					<li><span class="kill-white">WHITE:</span> A Pirate or non-faction warfare associated pilot.</li>
+					<li><span class="kill-green">GREEN:</span> A Gallente militia pilot.</li>
+					<li><span class="kill-blue">BLUE:</span> A Caldari militia pilot.</li>
+					<li><span class="kill-gold">GOLD:</span> An Amarr militia pilot.</li>
+					<li><span class="kill-orange">ORANGE:</span> A Minmatar militia pilot.</li>
                 </ul>
             </li>
         </ul>
@@ -223,10 +258,24 @@
             <li>You can zoom and pan the map</li>
             <li>Shows regions and what systems are in each region</li>
             <li>Shows the division of the North and South warzones using a red line</li>
+            <li>Is only of the Minmatar and Amarr warzone</li>
+            <li><strong>System Colors:</strong>
+                <ul>
+                    <li><span style="color: #8eff9d;">ORANGE: </span> means that a the system is occupyed by the Minmatar.</li>
+                    <li><span style="color: #a3f0f7">YELLOW: </span> means that the system is occupyed by the Amarr.</li>
+                    <li><span style="color: #fffca8">LIGHT GREEN: </span> means that the system a high security system.</li>
+                    <li><span style="color: #c1a1f4">PURPLE: </span> means that the system a low sec or null sec system that isn't part of Faction Warfare.</li>
+                    <li><span style="color: #f4a1a1">RED OUTLINE: </span> means that the system in question is a known gate camp system.</li>
+                </ul>
+            </li>
         </ul>
         <h3>Missions</h3>
         <ul>
             <li>Limited mission information is shown on the map network.</li>
+            <!--<li><span style="color: #8eff9d;">GREEN: </span>Minmatar Missions = Federal Defense Union</li>-->
+            <!--<li><span style="color: #a3f0f7;">BLUE: </span>Amarr Missions = State Protectorate</li>-->
+            <li><span style="color: #dba969;">ORANGE: </span>Minmatar Missions = Tribal Liberation Force</li>
+            <li><span style="color: #fffca8;">YELLOW: </span>Amarr Missions = 24th Imperial Crusade</li>
         </ul>
         <h3>System Indexes</h3>
         <ul>
@@ -238,15 +287,15 @@
             <li>Double clicking a row will open that systems stats on dotlan.</li>
             <li><strong>Index Colors:</strong>
                 <ul>
-                    <li><span class="text-warning">Yellow: </span> means that a the system is occupyed by the Amarr.</li>
-                    <li><span class="text-danger">Red: </span> means that the system is occupyed by the Minmatar.</li>
+                    <li><span class="text-success">GREEN: </span> means that a the system is occupyed by the Minmatar.</li>
+                    <li><span class="text-info">BLUE: </span> means that the system is occupyed by the Amarr.</li>
                 </ul>
             </li>
         </ul>
         <h3>Kill / Death Stats</h3>
         <ul>
-            <li>Kill Stats shows the number of kills each faction has gotten. AKA Gallente kills a Caldari, then the Gallente kill stats goes up by one.</li>
-            <li>Death Stats shows the number of deaths each faction has gotten. AKA Gallente pilot dies, then the Gallente death stats goes up by one.</li>
+            <li>Kill Stats shows the number of kills each faction has gotten. AKA Minmatar kills a Amarr, then the Minmatar kill stats goes up by one.</li>
+            <li>Death Stats shows the number of deaths each faction has gotten. AKA Minmatar pilot dies, then the Minmatar death stats goes up by one.</li>
         </ul>
       </div>
       <div class="modal-footer">
@@ -256,6 +305,15 @@
   </div>
 </div>
 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-96338983-1', 'auto');
+  ga('send', 'pageview');
+</script>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
