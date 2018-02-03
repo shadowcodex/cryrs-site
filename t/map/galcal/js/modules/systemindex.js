@@ -1,22 +1,31 @@
 /* globals colorEnemy, colorFriendly, updateNode, lockUpdateBaseColor, lockHighlight, lockEndHighlight, $ */
 // Start getting data for FW
+var nextUpdate = 0;
+var sorting = [[2,1]];
+
 var updateNodes = function(){
-    //console.log(nodes.get({}), 'hey');
+	var now = new Date().getTime();
+	nextUpdate = now + 900000;
+	
+	$('#systems tbody').empty();
+	$('#systems').trigger("update");
+	
     $.ajax({
         url: 'http://services.jerkasauruswrecks.com:3000/fw/report',
 		error: function() {
 			console.log("Failed to fetch warzone data");
+			$('#systems tbody').append(`<tr><td>Error</td><td>updating</td><td>system</td><td>data!</td><tr>`);
+	
+			$('#systems').trigger("update");
+			setTimeout(function() {
+				$('#systems').trigger("sorton", [sorting]);
+			}, 100);
 		},
         success: function(data){
             // Ping Google
             ga('send', 'event','Systems', 'Gal Systems Updated', performance.now().toString() , '0');
             // do something with data
-			
-			//BUG Tbody not being emptied properly. Stacking this table with a bunch of duplicates
-            $('#systems tbody').empty();
-            $('#systems').append('<tbody></tbody>');
-            $.each(data.data, function(i, item){
-                //console.log(i, item);
+			$.each(data.data, function(i, item){
                 var rowcolor = "";
                 if(item.owner == "Gallente Federation"){
                     updateNode(item);
@@ -29,7 +38,6 @@ var updateNodes = function(){
                 }
                 
                 if(item.owner == "Gallente Federation" || item.owner == "Caldari State"){
-                    //console.log(item);
                     $('#systems tbody').append(`
                         <tr class="` + rowcolor + `" data-systemid="` + item.id + `" data-systemname="` + item.name + `">
                             <td>` + item.name + `</td>
@@ -40,7 +48,11 @@ var updateNodes = function(){
                     `);
                 }
             });
-            $('#systems').tablesorter({sortList: [[2,1]]});
+			//Tell the table sorter we've made changes and apply the sorting.
+			$('#systems').trigger("update");
+			setTimeout(function() {
+				$('#systems').trigger("sorton", [sorting]);
+			}, 100);
             //setup table rows to be clickable
             $('#killboard tr[data-systemid]').unbind('mouseenter mouseleave dblclick');
             $('#system tr[data-systemid]').hover(function(){
@@ -55,17 +67,22 @@ var updateNodes = function(){
             $('#system tr[data-systemname]').on('dblclick', function(){
                 window.open("http://evemaps.dotlan.net/system/" + $(this).data("systemname") + "/stats", '_blank');
             });
-            //$('#systems').trigger("sorton", [[0,0]]);
         }
-    });  
+    });
 };
-updateNodes();
-var nextUpdate = 0;
+
+setTimeout(function() {
+	$('#systems').tablesorter();
+	updateNodes();
+	var d = new Date();
+	var e = $('#kill-stats')[0];
+	e.innerHTML = e.innerHTML.substring(0, e.innerHTML.indexOf("Since ") + 5) + " " + (d.getUTCHours() < 10 ? "0" : "") + d.getUTCHours() + ":" + (d.getUTCMinutes() < 10 ? "0" : "") + d.getUTCMinutes() + " EVE time";
+}, 1000);
+
 setInterval(function(){
-	var now = new Date().getTime();
-	nextUpdate = now + 900000;
     updateNodes();
 },900000);
+
 setInterval(function() {
 	var now = new Date().getTime();
 	var distance = Math.abs(nextUpdate - now);
