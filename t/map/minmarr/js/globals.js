@@ -35,7 +35,7 @@
 		WHITE: 'class="kill-white"',
 		GALMIL: 'class="kill-green"',
 		CALMIL: 'class="kill-blue"',
-		MINMIL: 'class="kill-red"',
+		MINMIL: 'class="kill-orange"',
 		MARMIL: 'class="kill-gold"',
 	});
 	
@@ -46,15 +46,15 @@
     var kills = [];
 
     var killStats = {
-        'gal': 0,
-        'cal': 0,
+        'min': 0,
+        'mar': 0,
         'pir': 0,
         'npc': 0
     };
     
     var deathStats = {
-        'gal': 0,
-        'cal': 0,
+        'min': 0,
+        'mar': 0,
         'pir': 0
     }
     
