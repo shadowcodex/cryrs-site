@@ -12,7 +12,33 @@
     //var regPlacid = '#162d16', regVerge = '#151b2b', regEssence = '#132827', regCitadel = '#231328', regRise = '#281313', regLone = '#282713';
     var regPlacid = '#3e513e', regSinq = '#3d3c2d', regEssence = '#2f3f3e', regCitadel = '#3b2f3f', regRise = '#333844', regLone = '#3d2a2a';
     var mapScale = 1.6;
-
+	// ENUM for common ID lookup
+	var idEnum = Object.freeze(
+	{
+		CalMil: 500001,
+		MinMil: 500002,
+		MarMil: 500003,
+		GalMil: 500004,
+		FEDUP: 99007289,
+		
+	});
+	
+	var killColor = Object.freeze(
+	{
+		RED: 'class="kill-red"',
+		GREEN: 'class="kill-green"',
+		LGREEN: 'class="kill-light-green"',
+		BLUE: 'class="kill-blue"',
+		LBLUE: 'class="kill-light-blue"',
+		GREY: 'class="kill-grey"',
+		LGREY: 'class="kill-light-grey"',
+		WHITE: 'class="kill-white"',
+		GALMIL: 'class="kill-green"',
+		CALMIL: 'class="kill-blue"',
+		MINMIL: 'class="kill-orange"',
+		MARMIL: 'class="kill-gold"',
+	});
+	
     // Hash Map for Colors
     var colors = {};
     
