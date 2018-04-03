@@ -30,16 +30,16 @@ var updateNodes = function(){
                 if(item.owner == "Minmatar Republic"){
                     updateNode(item);
                     lockUpdateBaseColor(item.id,colorFriendly);
-                    rowcolor = "text-danger";
+                    rowcolor = killColor.MINMIL;
                 } else if (item.owner == "Amarr Empire") {
                     updateNode(item);
                     lockUpdateBaseColor(item.id,colorEnemy);
-                    rowcolor = "text-warning";
+                    rowcolor = killColor.MARMIL;
                 }
                 
                 if(item.owner == "Minmatar Republic" || item.owner == "Amarr Empire"){
                     $('#systems tbody').append(`
-                        <tr class="` + rowcolor + `" data-systemid="` + item.id + `" data-systemname="` + item.name + `">
+                        <tr ` + rowcolor + `" data-systemid="` + item.id + `" data-systemname="` + item.name + `">
                             <td>` + item.name + `</td>
                             <td>` + item.owner.split(' ')[0] + `</td>
                             <td>` + item.contestedPercentage + `</td>

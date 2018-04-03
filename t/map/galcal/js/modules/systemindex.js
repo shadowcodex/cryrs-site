@@ -30,16 +30,16 @@ var updateNodes = function(){
                 if(item.owner == "Gallente Federation"){
                     updateNode(item);
                     lockUpdateBaseColor(item.id,colorFriendly);
-                    rowcolor = "text-success";
+                    rowcolor = killColor.GALMIL;
                 } else if (item.owner == "Caldari State") {
                     updateNode(item);
                     lockUpdateBaseColor(item.id,colorEnemy);
-                    rowcolor = "text-info";
+                    rowcolor = killColor.CALMIL;
                 }
                 
                 if(item.owner == "Gallente Federation" || item.owner == "Caldari State"){
                     $('#systems tbody').append(`
-                        <tr class="` + rowcolor + `" data-systemid="` + item.id + `" data-systemname="` + item.name + `">
+                        <tr ` + rowcolor + `" data-systemid="` + item.id + `" data-systemname="` + item.name + `">
                             <td>` + item.name + `</td>
                             <td>` + item.owner.split(' ')[0] + `</td>
                             <td>` + item.contestedPercentage + `</td>
