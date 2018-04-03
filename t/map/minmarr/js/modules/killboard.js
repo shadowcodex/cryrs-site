@@ -1,59 +1,5 @@
 /*global $, kills, systems, flashNodeColor, moneyFormat, lockHighlight, lockEndHighlight, performance */
 
-//TODO This needs to be rewritten. None of these checks actually mean anything. They aren't returning the cases that are described in the help menu at all.
-
-/*
-Required states:
-	- Pirates only (White)
-	- Pirate kills MarMil (Muted)
-	- Pirate kills MinMil (Grey)
-	- MarMil kills MinMil (Blue)
-	- MarMil kills Pirate (Lblue)
-	- Galmil kills MarMil (Green)
-	- MinMil kills Pirate (Yellow)
-*/
-var isFW = function(killmail){
-    var killer = "";
-	var victim = "";
-	// Loop to find the killer, store who done it.
-    for(var i in killmail.attackers){
-        if(killmail.attackers[i].final_blow == true) {
-            if (killmail.attackers[i].faction_id != null){
-                if(killmail.attackers[i].faction_id == idEnum.MinMil) killer = "MINMIL";
-                if(killmail.attackers[i].faction_id == idEnum.MarMil) killer = "MARMIL";
-            } else killer = "PIRATE";
-        }
-    }
-	
-	// Store who the victim is
-	if (killmail.victim.faction_id != null) { // If the victim is in the militia
-        if(killmail.victim.faction_id == idEnum.MinMil) killer = "MINMIL";
-        if(killmail.victim.faction_id == idEnum.MarMil) killer = "MARMIL";
-    } else victim = "PIRATE";
-	
-	// I hate trying to keep track of states like this in ^^^^ that kind of code so.... splitting it off
-	switch(killer) {
-		case "PIRATE":
-			if (victim == "PIRATE") return killColor.WHITE;
-			if (victim == "MARMIL") return killColor.LGREY;
-			if (victim == "MINMIL") return killColor.GREY;
-			
-		case "MARMIL":
-			if (victim == "PIRATE") return killColor.LBLUE;
-			if (victim == "MARMIL") return killColor.RED;
-			if (victim == "MINMIL") return killColor.BLUE;
-			
-		case "MINMIL":
-			if (victim == "PIRATE") return killColor.LGREEN;
-			if (victim == "MARMIL") return killColor.GREEN;
-			if (victim == "MINMIL") return killColor.RED;
-		
-		default:
-			return killColor.WHITE;
-	}
-    
-    return '';
-}
 
 var charColor = function(killmail, victim) {
 	var attacker;
@@ -248,13 +194,13 @@ setInterval(function(){
 							
 							// Add to killboard
                             $('#kills tbody').prepend(`
-                                <tr `+ /*isFW(item.killmail) +*/` data-systemid="` + item.killmail.solar_system_id + `">
+                                <tr data-systemid="` + item.killmail.solar_system_id + `">
                                     <td>` + moneyFormat(item.zkb.totalValue) + `</td>
                                     <td>` + item.killmail.killmail_time.toString().substring(item.killmail.killmail_time.length - 9,item.killmail.killmail_time.length - 4) + `</td>
                                     <td><a target="_blank" href="https://zkillboard.com/kill/` + item.killID+ `/"><img id="` + item.killID + `ship" class="s16" src="https://imageserver.eveonline.com/Render/` + item.killmail.victim.ship_type_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+item.killmail.victim.ship_type_id+`"></a></td>
                                     <td>` + parseSolarSystem(item.killmail.solar_system_id) + `</td>
                                     <td ` + charColor(item.killmail, true) + `><a target="_blank" href="https://zkillboard.com/corporation/` + item.killmail.victim.corporation_id + `/"><img id="` + item.killID + `vcorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + item.killmail.victim.corporation_id + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+item.killmail.victim.corporation_id+`"></a>&nbsp; ` + item.killmail.victim.character_id + `</td>
-                                    <td ` + charColor(item.killmail, false) + `><a target="_blank" href="https://zkillboard.com/corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `/"><img id="` + item.killID + `acorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+getFinalBlowCorpID(item.killmail.attackers)+`"></a>&nbsp; ` + getFinalBlowID(item.killmail.attackers) + `&nbsp;` +  (item.killmail.attackers.length == 1 ? `<span style=\"color:yellow\"><strong>(Solo)</strong></span>` : `(`+item.killmail.attackers.length+`)`) + `</td>
+                                    <td ` + charColor(item.killmail, false) + `><a target="_blank" href="https://zkillboard.com/corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `/"><img id="` + item.killID + `acorp" class="s16" src="https://imageserver.eveonline.com/Corporation/` + getFinalBlowCorpID(item.killmail.attackers) + `_32.png" data-toggle="tooltip" data-placement="bottom" title="`+getFinalBlowCorpID(item.killmail.attackers)+`"></a>&nbsp; ` + getFinalBlowID(item.killmail.attackers) + `&nbsp;` +  (item.killmail.attackers.length == 1 ? `<span style=\"color:yellow\"><strong>(Solo)</strong></span>` : `<span style=\"color:white\">(`+item.killmail.attackers.length+`)</span>`) + `</td>
                                 </tr>
                             `);
 							
