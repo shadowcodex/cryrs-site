@@ -11,7 +11,7 @@ var updateNodes = function(){
 	$('#systems').trigger("update");
 	
     $.ajax({
-        url: 'http://services.jerkasauruswrecks.com:3000/fw/report',
+        url: 'https://esi.evetech.net/latest/fw/systems/?datasource=tranquility',
 		error: function() {
 			console.log("Failed to fetch warzone data");
 			$('#systems tbody').append(`<tr><td>Error</td><td>updating</td><td>system</td><td>data!</td><tr>`);
@@ -42,7 +42,7 @@ var updateNodes = function(){
 					}
 					
 					$('#systems tbody').append(`
-                        <tr class="` + rowcolor + `" data-systemid="` + item.solar_system_id + `" data-systemname="` + item.name + `">
+                        <tr ` + rowcolor + ` data-systemid="` + item.solar_system_id + `" data-systemname="` + item.name + `">
                             <td>` + item.name + `</td>
                             <td>` + fac.split(' ')[0] + `</td>
                             <td>` + item.contestedPercentage + `</td>

@@ -42,7 +42,7 @@ var updateNodes = function(){
 					}
 					
 					$('#systems tbody').append(`
-                        <tr class="` + rowcolor + `" data-systemid="` + item.solar_system_id + `" data-systemname="` + item.name + `">
+                        <tr ` + rowcolor + ` data-systemid="` + item.solar_system_id + `" data-systemname="` + item.name + `">
                             <td>` + item.name + `</td>
                             <td>` + fac.split(' ')[0] + `</td>
                             <td>` + item.contestedPercentage + `</td>
