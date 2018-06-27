@@ -34,16 +34,16 @@ var updateNodes = function(){
 					if(fac == "Gallente Federation"){
 						updateNode(item);
 						lockUpdateBaseColor(item.solar_system_id,colorFriendly);
-						rowcolor = "text-success";
+						rowcolor = killColor.GALMIL;
 					} else if (fac == "Caldari State") {
 						updateNode(item);
 						lockUpdateBaseColor(item.solar_system_id,colorEnemy);
-						rowcolor = "text-info";
+						rowcolor = killColor.CALMIL;
 					}
 					
 					$('#systems tbody').append(`
                         <tr class="` + rowcolor + `" data-systemid="` + item.solar_system_id + `" data-systemname="` + item.name + `">
-                            <td>` + item.solar_system_id + `</td>
+                            <td>` + item.name + `</td>
                             <td>` + fac.split(' ')[0] + `</td>
                             <td>` + item.contestedPercentage + `</td>
                             <td>N/A</td>
