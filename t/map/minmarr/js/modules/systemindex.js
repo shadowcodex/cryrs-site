@@ -25,25 +25,28 @@ var updateNodes = function(){
             // Ping Google
             ga('send', 'event','Systems', 'Minmar Systems Updated', performance.now().toString() , '0');
             // do something with data
-			$.each(data.data, function(i, item){
-                var rowcolor = "";
-                if(item.owner == "Minmatar Republic"){
-                    updateNode(item);
-                    lockUpdateBaseColor(item.id,colorFriendly);
-                    rowcolor = killColor.MINMIL;
-                } else if (item.owner == "Amarr Empire") {
-                    updateNode(item);
-                    lockUpdateBaseColor(item.id,colorEnemy);
-                    rowcolor = killColor.MARMIL;
-                }
-                
-                if(item.owner == "Minmatar Republic" || item.owner == "Amarr Empire"){
-                    $('#systems tbody').append(`
-                        <tr ` + rowcolor + `" data-systemid="` + item.id + `" data-systemname="` + item.name + `">
+			$.each(data, function(i, item){
+				var fac = factionName[item.occupier_faction_id];
+				if(fac == "Minmatar Republic" || fac == "Amarr Empire") {
+					item.contestedPercentage = Math.round((item.victory_points/item.victory_points_threshold)*1000)/10;
+					item.name = nodes.get({filter: function(n) {return (n.id === item.solar_system_id)}})[0].systemName;
+					var rowcolor = "";
+					if(fac == "Minmatar Republic"){
+						updateNode(item);
+						lockUpdateBaseColor(item.solar_system_id,colorFriendly);
+						rowcolor = killColor.MINMIL;
+					} else if (fac == "Amarr Empire") {
+						updateNode(item);
+						lockUpdateBaseColor(item.solar_system_id,colorEnemy);
+						rowcolor = killColor.MARMIL;
+					}
+					
+					$('#systems tbody').append(`
+                        <tr class="` + rowcolor + `" data-systemid="` + item.solar_system_id + `" data-systemname="` + item.name + `">
                             <td>` + item.name + `</td>
-                            <td>` + item.owner.split(' ')[0] + `</td>
+                            <td>` + fac.split(' ')[0] + `</td>
                             <td>` + item.contestedPercentage + `</td>
-                            <td>` + item.contestedPercentage3HourDelta + `</td>
+                            <td>N/A</td>
                         </tr>
                     `);
                 }

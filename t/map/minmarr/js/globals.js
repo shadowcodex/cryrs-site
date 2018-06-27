@@ -13,6 +13,12 @@
     var regPlacid = '#3e513e', regSinq = '#3d3c2d', regEssence = '#2f3f3e', regCitadel = '#3b2f3f', regRise = '#333844', regLone = '#3d2a2a';
     var mapScale = 1.6;
 	// ENUM for common ID lookup
+	var factionName = {
+		500001: "Caldari State",
+		500002: "Minmatar Republic",
+		500003: "Amarr Empire",
+		500004: "Gallente Federation",
+	};
 	var idEnum = Object.freeze(
 	{
 		CalMil: 500001,
