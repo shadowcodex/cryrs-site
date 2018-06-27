@@ -14,6 +14,12 @@
     var mapScale = 2.4;
 
 	// ENUM for common ID lookup
+	var factionName = {
+		500001: "Caldari State",
+		500002: "Minmatar Republic",
+		500003: "Amarr Empire",
+		500004: "Gallente Federation",
+	};
 	var idEnum = Object.freeze(
 	{
 		CalMil: 500001,
