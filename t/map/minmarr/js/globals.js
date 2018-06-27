@@ -40,7 +40,7 @@
 		LGREY: 'class="kill-light-grey"',
 		WHITE: 'class="kill-white"',
 		GALMIL: 'class="kill-green"',
-		CALMIL: 'class="kill-blue"',
+		CALMIL: 'class="kill-light-blue"',
 		MINMIL: 'class="kill-orange"',
 		MARMIL: 'class="kill-gold"',
 	});
