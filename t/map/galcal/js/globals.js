@@ -11,9 +11,15 @@
     
     //var regPlacid = '#162d16', regVerge = '#151b2b', regEssence = '#132827', regCitadel = '#231328', regRise = '#281313', regLone = '#282713';
     var regPlacid = '#3e513e', regVerge = '#3d3c2d', regEssence = '#2f3f3e', regCitadel = '#3b2f3f', regRise = '#333844', regLone = '#3d2a2a';
-    var mapScale = 2.4;
+    var mapScale = 2.7;
 
 	// ENUM for common ID lookup
+	var factionName = {
+		500001: "Caldari State",
+		500002: "Minmatar Republic",
+		500003: "Amarr Empire",
+		500004: "Gallente Federation",
+	};
 	var idEnum = Object.freeze(
 	{
 		CalMil: 500001,
@@ -35,8 +41,8 @@
 		LGREY: 'class="kill-light-grey"',
 		WHITE: 'class="kill-white"',
 		GALMIL: 'class="kill-green"',
-		CALMIL: 'class="kill-blue"',
-		MINMIL: 'class="kill-red"',
+		CALMIL: 'class="kill-light-blue"',
+		MINMIL: 'class="kill-orange"',
 		MARMIL: 'class="kill-gold"',
 	});
 	
