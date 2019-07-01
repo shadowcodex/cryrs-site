@@ -28,6 +28,11 @@ var updateNodes = function() {
 			ga('send', 'event', 'Systems', 'Gal Systems Updated', performance.now().toString(), '0');
 			// do something with data
 			$.each(data, function(i, item) {
+				item.name = nodes.get({
+					filter: function(n) {
+						return (n.id === item.system_id)
+					}
+				})[0].systemName;
 				var rowcolor = "";
 				if (item.occupier == 500004) {
 					updateNode(item);
@@ -43,7 +48,7 @@ var updateNodes = function() {
                         <tr ` + rowcolor + `" data-systemid="` + item.system_id + `" data-systemname="` + item.name + `">
                             <td>` + item.name + `</td>
                             <td>` + (item.occupier == 500004 ? "Gallente" : "Caldari") + `</td>
-                            <td>` + (item.vp / item.vp_cap) + `</td>
+                            <td>` + (Math.round((item.vp / item.vp_cap) * 1000) / 10) + `</td>
                             <td>` + (item.delta_3) + `</td>
                         </tr>
                     `);

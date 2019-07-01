@@ -354,5 +354,5 @@ network.on("beforeDrawing", function (ctx) {
 
 
 var updateNode = function(item){
-    nodes.update([{id:item.id, label:item.name + '\n' + item.contestedPercentage + '%  ' + changeArrow(item.contestedPercentage3HourDelta)}]);
+    nodes.update([{id:item.solar_system_id, label:item.name + '\n' + item.contestedPercentage + '%  ' + changeArrow(0)}]);//item.contestedPercentage3HourDelta)}]);
 };

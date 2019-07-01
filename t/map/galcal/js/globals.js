@@ -23,8 +23,7 @@ var idEnum = Object.freeze({
 	CalMil: 500001,
 	MinMil: 500002,
 	MarMil: 500003,
-	GalMil: 500004,
-
+	GalMil: 500004
 });
 
 var killColor = Object.freeze({
@@ -37,9 +36,9 @@ var killColor = Object.freeze({
 	LGREY: 'class="kill-light-grey"',
 	WHITE: 'class="kill-white"',
 	GALMIL: 'class="kill-green"',
-	CALMIL: 'class="kill-blue"',
+	CALMIL: 'class="kill-light-blue"',
 	MINMIL: 'class="kill-orange"',
-	MARMIL: 'class="kill-gold"',
+	MARMIL: 'class="kill-gold"'
 });
 
 // Hash Map for Colors
